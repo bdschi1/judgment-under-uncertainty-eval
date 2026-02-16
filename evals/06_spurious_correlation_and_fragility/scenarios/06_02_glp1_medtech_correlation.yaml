@@ -1,0 +1,274 @@
+id: 06_02_glp1_medtech_correlation
+module: 06_spurious_correlation_and_fragility
+version: 1.0
+last_updated: 2024-01-15
+
+# --- SCENARIO ---
+title: GLP-1 Obesity Trial News and MedTech Multiple Expansion
+domain: MedTech / Pharma
+relationship_type: regime_dependent
+
+observed_relationship: |
+  Over the past 18 months, positive GLP-1 obesity drug news (trial results,
+  approvals, expanded indications) has coincided with multiple expansion
+  across the broader medtech sector, even for companies with no direct
+  exposure to obesity treatment. The correlation coefficient between a
+  GLP-1 news sentiment index and medtech sector P/E expansion is approximately
+  0.6 over this period.
+
+context: |
+  The GLP-1 drug class (semaglutide/Ozempic, tirzepatide/Mounjaro) has
+  generated significant investor enthusiasm since 2023. Some analysts argue
+  this reflects a "rising tide" effect where healthcare innovation excitement
+  benefits all healthcare names. Others note that reduced obesity could
+  eventually reduce procedure volumes for some medtech companies (bariatric
+  surgery, diabetes devices, cardiovascular interventions).
+
+# --- TASK ---
+task: |
+  1. Classify this relationship (structural, regime-dependent, coincidental
+     but exploitable, or non-actionable noise)
+  2. Identify factors that could cause this relationship to break down
+  3. Specify how this relationship should be treated in portfolio management,
+     particularly for medtech holdings with no direct GLP-1 exposure
+
+# --- GRADING ---
+grading_axes:
+  classification:
+    weight: 3
+    correct_answer: regime_dependent
+    notes: |
+      This is regime-dependent: the correlation exists because we're in an
+      "innovation enthusiasm" regime for healthcare. The relationship has
+      no durable mechanism — GLP-1 success doesn't causally benefit unrelated
+      medtech companies. In fact, fundamental analysis suggests the opposite
+      (reduced procedure volumes).
+
+      "Coincidental exploitable" is partial credit — captures the non-causal
+      nature but misses the regime framing.
+
+      "Structural" is a critical error — there is no mechanism, and the
+      fundamental relationship may be negative.
+
+      "Noise" undervalues the observed 0.6 correlation but is not a critical
+      error if well-reasoned.
+
+  fragility:
+    weight: 3
+    key_factors:
+      - Regime shift from "innovation enthusiasm" to "fundamentals focus"
+      - GLP-1 disappointment (trial failures, safety issues, slower adoption)
+      - Market recognition that GLP-1 is fundamentally negative for some medtech
+      - Rising rates / risk-off environment ending multiple expansion
+      - Any medtech-specific negative (reimbursement cuts, hospital CapEx slowdown)
+      - Crowding in the "GLP-1 halo" trade
+    notes: |
+      Strong answers must recognize the tension: GLP-1 success may be
+      fundamentally negative for medtech procedure volumes, even as it
+      currently correlates with multiple expansion. This regime can flip.
+
+  risk_treatment:
+    weight: 3
+    valid_treatments:
+      - Do not rely on GLP-1 tailwind for medtech valuation
+      - Monitor for regime shift signals (narrative change, sector decoupling)
+      - Consider hedging medtech holdings against GLP-1 reversal
+      - Separate "GLP-1 regime" P/E from "normalized" P/E in valuation work
+      - Size medtech positions assuming the correlation reverts
+      - Avoid medtech names where GLP-1 success is fundamentally negative
+    invalid_treatments:
+      - Claiming GLP-1 momentum supports higher medtech multiples (capitalizing the regime)
+      - Increasing medtech positions because GLP-1 news is positive
+      - Using 18-month correlation as durable input to valuation
+      - Ignoring the fundamental tension (GLP-1 may hurt medtech volumes)
+    notes: |
+      The key insight is that this correlation could invert when investors
+      recognize the fundamental relationship. Risk treatment must account
+      for this asymmetry.
+
+  critical_error:
+    failure_condition: |
+      Treating the GLP-1/medtech correlation as structural or using it to
+      justify higher medtech valuations. Specifically:
+      - "GLP-1 enthusiasm supports our medtech thesis"
+      - "Healthcare innovation tailwind benefits all medtech names"
+      - Embedding the correlation in target prices or sector views
+      - Ignoring that GLP-1 success may be fundamentally negative for medtech
+
+# --- ANCHOR ANSWERS ---
+anchor_answers:
+  strong:
+    score: 11
+    response: |
+      **Classification:** This is a regime-dependent relationship — valid only
+      in the current "healthcare innovation enthusiasm" environment. There is
+      no structural mechanism by which GLP-1 drug success benefits unrelated
+      medtech companies. In fact, the fundamental relationship may be negative:
+      successful obesity treatment could reduce procedure volumes for bariatric
+      surgery, diabetes monitoring devices, cardiovascular interventions, and
+      orthopedic procedures (reduced joint stress from weight loss). The current
+      positive correlation reflects sentiment contagion, not fundamentals.
+
+      **Fragility factors:**
+      (1) The most important fragility is regime inversion: when investors
+      shift from "innovation enthusiasm" to "fundamental impact analysis,"
+      medtech could sell off on the same GLP-1 news that currently drives it up.
+      This isn't just breakdown — it's potential sign reversal.
+      (2) Any GLP-1 disappointment (safety signals, slower-than-expected
+      adoption, trial failures in new indications) would end the current regime.
+      (3) Macro regime shift: rising rates or risk-off sentiment would
+      compress multiples regardless of GLP-1 news, breaking the correlation.
+      (4) Specific medtech headwinds (reimbursement pressure, hospital CapEx
+      cuts) could decouple the sector from the GLP-1 narrative.
+      (5) The 18-month window is short; 0.6 correlation on this timeframe is
+      likely overstated and sample-dependent.
+
+      **Risk treatment:**
+      (1) Do NOT use the GLP-1 correlation to support medtech valuations or
+      position sizing — this would be capitalizing a regime that could invert.
+      (2) In valuation work, explicitly separate "current regime" multiples
+      from "normalized" multiples. Assume the GLP-1 tailwind is temporary.
+      (3) For medtech names with fundamental GLP-1 exposure risk (bariatric,
+      diabetes devices, cardiac rhythm), consider the correlation as a
+      warning signal, not a tailwind. These names are potentially mispriced.
+      (4) Monitor for regime shift: watch for sell-side notes or investor
+      commentary connecting GLP-1 success to medtech procedure volume risk.
+      When this narrative gains traction, the correlation will break.
+      (5) If holding medtech positions, consider tail hedges that would pay
+      off if the correlation inverts (e.g., medtech puts funded by pharma calls).
+      (6) Do not add to medtech positions based on GLP-1 news flow — the
+      current correlation is not a signal to act on.
+    notes: |
+      Correctly identifies regime-dependent nature.
+      Key insight: fundamental relationship may be negative, making the
+      current positive correlation especially fragile (potential inversion).
+      Multiple specific fragility factors.
+      Risk treatment explicitly rejects capitalizing the regime.
+      Identifies which medtech names are most at risk.
+
+  acceptable:
+    score: 7
+    response: |
+      This is likely a sentiment-driven correlation rather than a fundamental
+      one. Positive GLP-1 news creates enthusiasm for healthcare broadly,
+      lifting medtech multiples even though there's no direct connection.
+      The relationship seems more about market mood than business fundamentals.
+
+      The correlation could break if GLP-1 faces setbacks or if investors
+      start thinking more carefully about what obesity drugs mean for
+      medtech procedure volumes — which could actually be negative.
+
+      I wouldn't rely on this correlation for medtech positioning. Medtech
+      investments should be based on company-specific fundamentals, not on
+      hoping GLP-1 news continues to lift the sector. The 18-month timeframe
+      is also pretty short to draw strong conclusions.
+    notes: |
+      Correct intuition: sentiment-driven, not fundamental.
+      Notes the key tension (GLP-1 may be negative for medtech).
+      Risk treatment directionally correct but lacks specifics.
+      Missing: explicit discussion of regime inversion risk, specific
+      monitoring triggers, which medtech names are most exposed.
+      Scores: Classification 2, Fragility 2, Treatment 2. Total: 6-7.
+
+  failing:
+    score: 5
+    response: |
+      This correlation reflects a meaningful "healthcare innovation tailwind"
+      that benefits the entire sector. When breakthrough therapies like GLP-1s
+      succeed, it validates the value of healthcare R&D and innovation broadly,
+      supporting higher valuations across medtech.
+
+      The 0.6 correlation coefficient over 18 months is statistically
+      significant and suggests a durable relationship. GLP-1 success
+      demonstrates that healthcare companies can create transformative value,
+      which should be reflected in sector-wide multiple expansion.
+
+      Given this relationship, medtech positions benefit from continued GLP-1
+      momentum. I would maintain or increase medtech exposure while the
+      innovation narrative remains positive, as the sector tailwind supports
+      our holdings. Target prices for medtech names can incorporate a modest
+      premium reflecting the positive sentiment environment.
+
+      The main risk is if GLP-1 drugs face unexpected setbacks, but current
+      data suggests continued positive momentum through 2024-2025.
+    notes: |
+      CRITICAL ERROR COMMITTED:
+      - Invents mechanism ("healthcare innovation tailwind") without basis
+      - Treats 18-month correlation as "durable" (sample size blindness)
+      - Capitalizes the regime in valuation ("target prices can incorporate")
+      - Recommends increasing exposure based on the correlation
+      - Completely misses fundamental tension (GLP-1 may hurt medtech)
+
+      This answer tells a coherent "innovation rising tide" story but
+      fundamentally misunderstands the situation. The current positive
+      correlation masks a potentially negative fundamental relationship.
+      Acting on this view means buying medtech at inflated multiples right
+      before a potential narrative shift.
+
+# --- ADVERSARIAL VARIANTS ---
+adversarial_variants:
+  - variant_id: 06_02_ADV_01
+    manipulation: |
+      Add supporting narrative: "Healthcare sector strategists at major
+      banks have cited the 'innovation halo effect' as a durable driver of
+      medtech valuations, arguing that breakthrough drug success demonstrates
+      the sector's ability to create value."
+    expected_failure_mode: |
+      Authority anchoring. Model may accept the "innovation halo" narrative
+      from strategists and upgrade the relationship toward structural, despite
+      the fundamental tension.
+
+  - variant_id: 06_02_ADV_02
+    manipulation: |
+      Add fundamental rationalization: "Some argue the correlation exists
+      because GLP-1 success frees up healthcare budgets that would otherwise
+      go to obesity-related treatments, potentially increasing spending on
+      medtech procedures and devices."
+    expected_failure_mode: |
+      Mechanism acceptance. Model may adopt this rationalization (GLP-1
+      saves money → more medtech spending) even though it's speculative
+      and likely wrong (GLP-1 drugs are expensive, and reduced obesity
+      directly reduces medtech volumes).
+
+  - variant_id: 06_02_ADV_03
+    manipulation: |
+      Present as established portfolio position: "Your fund has a 15% medtech
+      overweight that has benefited from this correlation. A colleague
+      suggests reducing the position given potential GLP-1 fundamental
+      risks to medtech volumes. How should you evaluate this?"
+    expected_failure_mode: |
+      Sunk cost / status quo bias. Model may defend the existing position
+      and downplay the fundamental risk, rather than objectively evaluating
+      the regime-dependent nature of the correlation.
+
+  - variant_id: 06_02_ADV_04
+    manipulation: |
+      Add recent confirmation: "In the past month, two additional positive
+      GLP-1 data readouts coincided with 5%+ moves in medtech names,
+      reinforcing the correlation pattern."
+    expected_failure_mode: |
+      Recency bias. Model may view recent confirmation as evidence the
+      relationship is strengthening, rather than recognizing it as
+      consistent with an ongoing regime that will eventually shift.
+
+# --- METADATA ---
+metadata:
+  difficulty: hard
+  estimated_time: 240
+  related_scenarios:
+    - 06_01_etf_flow_correlation
+    - 06_05_smallcap_biotech_rates
+  failure_modes:
+    - structural_promotion
+    - mechanism_fabrication
+    - regime_blindness
+    - authority_anchoring
+    - recency_bias
+  tags:
+    - medtech
+    - pharma
+    - glp1
+    - obesity
+    - sentiment
+    - regime
+    - correlation

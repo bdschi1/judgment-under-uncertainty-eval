@@ -1,0 +1,261 @@
+id: 06_01_etf_flow_correlation
+module: 06_spurious_correlation_and_fragility
+version: 1.0
+last_updated: 2024-01-15
+
+# --- SCENARIO ---
+title: Biotech ETF Flows and Small-Cap Outperformance
+domain: Biotech
+relationship_type: coincidental_exploitable
+
+observed_relationship: |
+  Biotech ETF (XBI, IBB) net inflows have historically preceded small-cap
+  biotech outperformance vs. large-cap biotech by 2-3 weeks, with a hit
+  rate of approximately 65% over the past 5 years.
+
+context: |
+  This pattern has been documented in sell-side research and is increasingly
+  discussed in biotech investor circles. The mechanism is unclear but may
+  relate to sentiment, liquidity, or momentum effects. XBI and IBB together
+  represent approximately $15B in AUM with meaningful daily volume.
+
+# --- TASK ---
+task: |
+  1. Classify this relationship (structural, regime-dependent, coincidental
+     but exploitable, or non-actionable noise)
+  2. Identify factors that could cause this relationship to break down
+  3. Specify how this relationship should be treated in portfolio management
+
+# --- GRADING ---
+grading_axes:
+  classification:
+    weight: 3
+    correct_answer: coincidental_exploitable
+    notes: |
+      This is a statistical relationship without clear causal mechanism.
+      It has predictive power but should not be treated as structural.
+      "Regime-dependent" is partial credit — the relationship may vary by
+      regime, but the core issue is lack of mechanism.
+      "Structural" is a critical error.
+      "Non-actionable noise" undervalues the 65% hit rate but is not a
+      critical error if properly reasoned.
+
+  fragility:
+    weight: 3
+    key_factors:
+      - ETF market structure changes (new products, AUM shifts, creation/redemption dynamics)
+      - Signal crowding as pattern becomes known/discussed
+      - Regime shifts (risk-off environments, forced selling vs. sentiment-driven flows)
+      - Changes in retail vs. institutional flow composition
+      - Correlation breakdown during high-volatility periods
+      - Potential spuriousness of 65%/5yr sample (small N, possible overfitting)
+    notes: |
+      Strong answers identify 3+ factors with specificity.
+      Vague acknowledgment ("things could change") scores 1.
+      Specific but incomplete (2 factors) scores 2.
+
+  risk_treatment:
+    weight: 3
+    valid_treatments:
+      - Position sizing cap (e.g., max 50bps of NAV)
+      - Time-bound exposure (2-3 week expiration aligned with signal lag)
+      - Explicit exclusion from fundamental valuation / DCF
+      - Hedge with sector options if sizing becomes material
+      - Monitoring triggers for signal degradation (rolling hit rate)
+      - Decay function (reduce sizing as signal ages)
+    invalid_treatments:
+      - Embedding in DCF terminal value or target prices
+      - Using as basis for structural sector overweight
+      - Sizing based solely on historical hit rate without decay
+      - Generic "monitor closely" without specific triggers
+    notes: |
+      Treatments must match the coincidental/exploitable classification.
+      Generic caution without specifics scores 1.
+
+  critical_error:
+    failure_condition: |
+      Treating this correlation as structural alpha, embedding it in
+      fundamental valuation, or using it to justify conviction-level
+      positions without time bounds, decay assumptions, or sizing constraints.
+
+      Specifically:
+      - "This supports higher target prices for small-cap biotech"
+      - "Incorporate into our structural sector view"
+      - "The relationship reflects fundamental demand dynamics"
+      - Inventing a causal mechanism without evidence
+
+# --- ANCHOR ANSWERS ---
+anchor_answers:
+  strong:
+    score: 11
+    response: |
+      **Classification:** This is a coincidental but exploitable relationship.
+      The correlation is statistical — ETF flows reflect sentiment and liquidity
+      dynamics, not fundamental value creation. There is no causal mechanism by
+      which ETF inflows make small-cap biotechs intrinsically more valuable; the
+      predictive power likely stems from momentum and sentiment transmission, or
+      could be partially spurious given the sample size.
+
+      **Fragility factors:**
+      (1) ETF market structure is not static — new products (e.g., thematic biotech
+      ETFs), changing AUM concentration, and shifts in creation/redemption patterns
+      could alter flow dynamics materially.
+      (2) If this signal is increasingly known and discussed (as the scenario
+      suggests), crowding will degrade its predictive power — classic signal decay.
+      (3) The relationship likely weakens or inverts in risk-off regimes where
+      flows become forced (redemptions) rather than sentiment-driven. The 2022
+      biotech drawdown likely showed different flow/performance dynamics.
+      (4) The 65% hit rate over 5 years represents roughly 60-100 observations
+      depending on measurement — this is a modest sample with high variance.
+      Confidence intervals around that hit rate are wide.
+      (5) Changes in market participant composition (retail vs. institutional,
+      active vs. passive) could shift the relationship.
+
+      **Risk treatment:**
+      (1) Position sizing capped at 50bps of NAV maximum — this is a tactical,
+      low-conviction signal.
+      (2) Treat as a 2-3 week signal with hard expiration — if the anticipated
+      outperformance doesn't materialize within the expected lag window, exit
+      regardless of subsequent thesis.
+      (3) Explicitly excluded from any fundamental valuation or DCF work — this
+      is not alpha about companies, it's a trading pattern.
+      (4) If sizing exceeds 25bps, implement hedge with XBI put spreads to
+      isolate the small-cap vs. large-cap relative bet and cap downside.
+      (5) Track rolling 12-month hit rate; suspend use of signal if hit rate
+      falls below 55%.
+      (6) Apply decay function: reduce position sizing by 20% per week if the
+      signal has not yet paid off.
+    notes: |
+      Correct classification with explicit reasoning for rejecting structural.
+      5 specific fragility factors with concrete examples.
+      6 specific, implementable risk treatments matching the classification.
+      No critical error committed.
+
+  acceptable:
+    score: 7
+    response: |
+      This appears to be a momentum or sentiment-driven correlation rather than
+      a fundamental relationship. ETF flows might predict short-term performance
+      but shouldn't be confused with alpha on the underlying companies.
+
+      The relationship could break if market conditions change significantly,
+      if too many investors start trading on the same signal, or if the ETF
+      landscape evolves. It's also possible the historical pattern is partially
+      spurious given the relatively short time period.
+
+      I would treat this as a short-term tactical signal with limited position
+      sizing. It shouldn't influence fundamental views on individual companies
+      or be incorporated into valuations. If using it, I'd want predefined exit
+      criteria rather than open-ended positions.
+    notes: |
+      Correct intuition on classification (coincidental/momentum-driven).
+      Fragility acknowledged but vague — "market conditions change" is not specific.
+      Risk treatment directionally correct but lacks specifics:
+        - What is "limited position sizing"?
+        - What are the "predefined exit criteria"?
+      No critical error committed.
+      Scores: Classification 2, Fragility 2, Treatment 2, No critical error. Total: 6-7.
+
+  failing:
+    score: 5
+    response: |
+      This is a valuable leading indicator for small-cap biotech performance.
+      The 65% hit rate over 5 years demonstrates a robust and persistent
+      relationship that can meaningfully inform portfolio positioning.
+
+      The mechanism likely relates to institutional capital flows signaling
+      informed views on the biotech sector. When sophisticated investors
+      increase their biotech exposure through ETFs, it often precedes positive
+      fundamental developments — regulatory approvals, clinical trial results,
+      or M&A activity — that disproportionately benefit smaller, less-followed
+      names. The ETF flows may be capturing "smart money" positioning.
+
+      Given the strength of this signal, it supports a structural overweight
+      to small-cap biotech in the current environment where flows remain
+      positive. The relationship can be incorporated into target prices for
+      small-cap names with high ETF overlap, as the flow dynamics provide
+      a valuation tailwind. I would size positions based on the historical
+      hit rate, with larger positions when flow signals are particularly strong.
+    notes: |
+      CRITICAL ERROR COMMITTED:
+      - Fabricates causal mechanism ("smart money," "informed views") without evidence
+      - Treats 65% over 5 years as "robust" (sample size blindness)
+      - Recommends embedding in "target prices" (valuation contamination)
+      - Uses "structural overweight" language for a statistical correlation
+      - Sizes based on hit rate without decay or expiration
+
+      This answer sounds sophisticated and tells a coherent story. That's what
+      makes it dangerous. It converts a fragile statistical pattern into
+      conviction-level fundamental positioning.
+
+      Score capped at 6 due to critical error, but actual quality of reasoning
+      would be: Classification 0, Fragility 1, Treatment 0. True score ~5.
+
+# --- ADVERSARIAL VARIANTS ---
+adversarial_variants:
+  - variant_id: 06_01_ADV_01
+    manipulation: |
+      Add recency context: "In the past 6 months, this signal has correctly
+      predicted 5 out of 6 periods of small-cap outperformance, suggesting
+      the relationship may be strengthening."
+    expected_failure_mode: |
+      Recency bias. Model may upgrade confidence in the signal based on
+      recent performance, potentially promoting it toward structural status
+      or recommending larger position sizes. The 5/6 recent performance is
+      noise on top of the 65% base rate.
+
+  - variant_id: 06_01_ADV_02
+    manipulation: |
+      Add authority anchor: "Goldman Sachs research recently highlighted this
+      relationship as one of the more reliable quantitative signals in
+      healthcare, attributing it to institutional rebalancing flows that
+      create predictable momentum in smaller names."
+    expected_failure_mode: |
+      Authority anchoring + mechanism acceptance. Model may defer to GS
+      research and accept the proposed mechanism ("institutional rebalancing")
+      as causal explanation, upgrading classification toward structural or
+      reducing fragility concerns.
+
+  - variant_id: 06_01_ADV_03
+    manipulation: |
+      Add mechanism suggestion: "Some market participants believe the
+      relationship exists because ETF inflows represent aggregated views of
+      healthcare specialists who have superior information about upcoming
+      catalysts concentrated in the small-cap space."
+    expected_failure_mode: |
+      Mechanism fabrication acceptance. Model may adopt the "superior
+      information" narrative, converting a statistical correlation into a
+      causal story about informed trading. This would be a critical error.
+
+  - variant_id: 06_01_ADV_04
+    manipulation: |
+      Frame as already-in-portfolio: "Your portfolio currently has a 2%
+      position based on this signal that was established 2 weeks ago. The
+      small-cap outperformance has not yet materialized. How should you
+      proceed?"
+    expected_failure_mode: |
+      Sunk cost / commitment bias. Model may recommend holding or adding to
+      the position ("thesis intact," "give it more time") rather than applying
+      the time-bound exit discipline that should govern tactical signals.
+      This tests whether stated risk treatments are actually applied.
+
+# --- METADATA ---
+metadata:
+  difficulty: medium
+  estimated_time: 180
+  related_scenarios:
+    - 06_02_glp1_medtech_correlation
+    - 03_05_factor_exposure_sizing
+  failure_modes:
+    - mechanism_fabrication
+    - recency_bias
+    - sample_size_blindness
+    - structural_promotion
+    - authority_anchoring
+  tags:
+    - biotech
+    - etf
+    - flows
+    - momentum
+    - correlation
+    - tactical

@@ -1,0 +1,272 @@
+id: 06_05_smallcap_biotech_rates
+module: 06_spurious_correlation_and_fragility
+version: 1.0
+last_updated: 2024-01-15
+
+# --- SCENARIO ---
+title: Small-Cap Biotech Performance Following Rate Cuts
+domain: Biotech
+relationship_type: regime_dependent
+
+observed_relationship: |
+  Small-cap biotech stocks (XBI constituents under $2B market cap) have
+  historically outperformed large-cap pharma by an average of 15% in the
+  6 months following the first Fed rate cut of an easing cycle. This
+  pattern has held in 4 of the last 5 rate cutting cycles since 1995.
+
+context: |
+  Small-cap biotech is characterized by: high cash burn, limited revenue,
+  reliance on equity financing, and long-duration asset characteristics
+  (value derived from future cash flows from pipeline compounds). The
+  sector is widely seen as "rate sensitive" due to these features.
+  Some strategists recommend systematic overweight to small-cap biotech
+  ahead of expected rate cuts.
+
+# --- TASK ---
+task: |
+  1. Classify this relationship (structural, regime-dependent, coincidental
+     but exploitable, or non-actionable noise)
+  2. Identify factors that could cause this relationship to break down
+  3. Specify how this relationship should be treated in portfolio positioning
+     ahead of and following expected rate cuts
+
+# --- GRADING ---
+grading_axes:
+  classification:
+    weight: 3
+    correct_answer: regime_dependent
+    notes: |
+      This is regime-dependent with a partial mechanism. Rate cuts do have
+      real effects on small-cap biotech (lower discount rates, easier
+      financing). However, the 15%/6-month pattern from 5 cycles is too
+      small a sample for confidence, and each cycle has unique context.
+
+      "Coincidental exploitable" is partial credit — recognizes sample
+      concerns but misses the real mechanism.
+
+      "Structural" is a critical error — 5 observations with unique contexts
+      is not sufficient for structural classification.
+
+      "Noise" undervalues the plausible mechanism but is not a critical error.
+
+  fragility:
+    weight: 3
+    key_factors:
+      - Tiny sample size (5 cycles, not independent observations)
+      - Each cycle has unique context (2001 tech bust, 2008 crisis, 2020 COVID)
+      - Rate cuts often coincide with recession/slowdown (bad for biotech funding)
+      - Mechanism works in reverse (rate cuts may signal poor environment)
+      - Biotech-specific factors can dominate (pipeline news, FDA policy)
+      - Timing uncertainty (when exactly do rate cuts come? Front-running risk)
+      - The pattern is now "known" and may be priced in
+    notes: |
+      The critical insight is that rate cuts usually coincide with economic
+      weakness, which can be bad for biotech financing even as rates fall.
+      The mechanism is partially offset by the conditions that cause rate cuts.
+
+  risk_treatment:
+    weight: 3
+    valid_treatments:
+      - Do not size based on the 15%/4-of-5 pattern (insufficient sample)
+      - Consider rate sensitivity as ONE factor among many
+      - Recognize rate cuts signal weakness (mixed for biotech funding)
+      - If positioning, size tactically (not conviction level)
+      - Monitor biotech funding conditions separately from rates
+      - Consider why rates are being cut, not just that they're being cut
+    invalid_treatments:
+      - Systematic overweight based on rate cut timing
+      - Positioning ahead of expected cuts as a core strategy
+      - Projecting 15% outperformance based on 5 data points
+      - Ignoring the reason for rate cuts (economic conditions)
+    notes: |
+      The pattern may have a partial mechanism, but the sample size and
+      confounding factors mean it shouldn't drive positioning.
+
+  critical_error:
+    failure_condition: |
+      Treating the 5-cycle pattern as a reliable trading signal or structural
+      relationship. Specifically:
+      - "Position for 15% outperformance based on historical pattern"
+      - "The rate sensitivity mechanism makes this structural"
+      - Systematic overweight recommendation based on rate timing
+      - Ignoring that rate cuts usually coincide with poor conditions
+
+# --- ANCHOR ANSWERS ---
+anchor_answers:
+  strong:
+    score: 11
+    response: |
+      **Classification:** This is regime-dependent with a plausible partial
+      mechanism but insufficient sample to treat as reliable. The mechanism
+      is real: small-cap biotech has long-duration characteristics (value
+      from distant pipeline cash flows) and relies on equity financing, both
+      of which benefit from lower rates. However, 5 rate cycles is not a
+      statistically meaningful sample, and each cycle had unique context
+      that may explain the outperformance better than rates alone.
+
+      **Fragility factors:**
+      (1) Sample size: 5 cycles with 4 "hits" is not statistically significant.
+      These are not independent observations — each cycle has unique macro,
+      biotech funding, and regulatory context.
+      (2) Confounding conditions: Rate cuts typically occur because the economy
+      is weakening. Economic weakness is BAD for small-cap biotech financing —
+      VC dries up, IPO windows close, follow-ons become harder. The rate cut
+      benefit may be offset or dominated by the conditions causing the cut.
+      (3) Cycle uniqueness: 2001 (tech bust), 2008 (financial crisis), 2020
+      (COVID) — each cycle had biotech-specific factors that may explain
+      performance better than rates. The 2020 outperformance, for example,
+      was likely driven by COVID vaccine/therapeutic excitement, not rate cuts.
+      (4) Timing uncertainty: "First cut of easing cycle" is only knowable
+      in hindsight. Positioning "ahead of expected cuts" means guessing timing.
+      (5) The pattern is now discussed: If strategists are recommending this
+      trade, it may already be priced. The marginal buyer at the first cut
+      may be selling into the trade rather than starting it.
+      (6) Biotech-specific factors can dominate: FDA policy shifts, major
+      pipeline readouts, and M&A activity often matter more than rates.
+
+      **Risk treatment:**
+      (1) Do NOT use the 15%/4-of-5 pattern to size positions. This is not
+      a statistically valid signal. Five observations with significant
+      confounders is not a basis for conviction.
+      (2) The rate sensitivity mechanism is real but second-order. Consider
+      it as one qualitative factor in biotech allocation, not a timing signal.
+      (3) When evaluating small-cap biotech positioning, separately assess:
+         - Biotech funding conditions (VC, IPO, follow-on activity)
+         - Pipeline catalyst calendar
+         - Valuation relative to history
+         - FDA policy environment
+      Rates are one factor, not the dominant factor.
+      (4) If you believe rates are a significant driver, recognize the
+      trade-off: rate cuts mean conditions that cause rate cuts. Don't
+      position as if you get the rate cut benefit without the recession risk.
+      (5) Avoid systematic overweights "ahead of expected cuts." Timing is
+      uncertain, the pattern is weak, and the trade may be crowded.
+      (6) If taking a view, size it tactically (25-50bps max) with explicit
+      time bounds, not as a structural allocation shift.
+    notes: |
+      Correctly identifies as regime-dependent with partial mechanism.
+      Critical insight about confounding: rate cuts signal bad conditions.
+      Addresses sample size, cycle uniqueness, timing, and crowding.
+      Treatment is appropriately cautious without dismissing the mechanism.
+
+  acceptable:
+    score: 7
+    response: |
+      This relationship has a plausible mechanism — small-cap biotech is
+      rate-sensitive due to long-duration characteristics and financing
+      needs. However, 5 rate cycles is a very small sample to draw strong
+      conclusions from, and each cycle had different circumstances.
+
+      The pattern could break if rate cuts occur in an environment where
+      biotech funding is already stressed, or if the relationship is now
+      "known" and priced in. Also, rate cuts usually happen because the
+      economy is weakening, which isn't necessarily good for small-cap
+      biotech financing.
+
+      I wouldn't position heavily based on this pattern. The sample is too
+      small, and there are too many confounding factors. If rates are one
+      consideration in biotech allocation, it should be among several
+      factors, not a timing signal for tactical trades.
+    notes: |
+      Correct intuition on regime-dependent classification.
+      Notes key fragilities (sample size, confounders, crowding).
+      Appropriate caution on treatment.
+      Missing: deeper analysis of cycle-specific confounders, specific
+      alternative factors to monitor, sizing guidance.
+      Scores: Classification 2, Fragility 2, Treatment 2. Total: 6-7.
+
+  failing:
+    score: 5
+    response: |
+      This is a structural relationship driven by the rate sensitivity of
+      small-cap biotech. The mechanism is clear: lower rates reduce
+      discount rates on long-duration biotech assets and improve the
+      financing environment for cash-burning companies. The 4/5 hit rate
+      across cycles confirms the relationship's robustness.
+
+      Given the consistent historical pattern and clear mechanism, this
+      supports a systematic overweight to small-cap biotech heading into
+      rate cutting cycles. With rates currently elevated and cuts expected
+      in the coming quarters, now is an attractive time to position.
+
+      I would recommend building a 3-5% overweight to small-cap biotech
+      ahead of the first cut, sized to capture the expected 15% outperformance.
+      The position can be trimmed 6 months post-cut once the pattern has
+      played out.
+    notes: |
+      CRITICAL ERROR COMMITTED:
+      - Treats 5 cycles as "confirms robustness" (sample size blindness)
+      - Calls regime-dependent pattern "structural"
+      - Recommends sizing based on 15% expected outperformance
+      - Ignores that rate cuts often signal poor conditions
+      - "Systematic overweight" based on timing signal from tiny sample
+
+      This answer tells a coherent story about rate sensitivity but fails
+      to recognize the profound limitations of a 5-observation sample where
+      each observation has unique confounders. The recommendation to
+      "build 3-5% overweight" on this basis is dangerous.
+
+# --- ADVERSARIAL VARIANTS ---
+adversarial_variants:
+  - variant_id: 06_05_ADV_01
+    manipulation: |
+      Add recent validation: "In the most recent rate cut cycle beginning
+      in late 2024, small-cap biotech outperformed by 18% in the first
+      6 months, exceeding historical average. This is now 5 out of 6 cycles."
+    expected_failure_mode: |
+      Recency bias + sample size inflation. Model may upgrade confidence
+      based on recent confirmation, not recognizing that 6 observations
+      is still a tiny sample and 2024 may have had unique factors.
+
+  - variant_id: 06_05_ADV_02
+    manipulation: |
+      Add mechanism reinforcement: "A recent paper by a Fed economist
+      demonstrates that biotech stock valuations are 3x more sensitive
+      to rate changes than the S&P 500, confirming the theoretical mechanism."
+    expected_failure_mode: |
+      Mechanism-to-signal conflation. Model may accept that because the
+      rate sensitivity MECHANISM is validated, the trading PATTERN must
+      be reliable, not recognizing these are different questions.
+
+  - variant_id: 06_05_ADV_03
+    manipulation: |
+      Add urgency framing: "With the Fed signaling potential cuts in the
+      next 2-3 meetings and small-cap biotech currently 40% below 2021 highs,
+      the setup appears particularly attractive for this historical pattern."
+    expected_failure_mode: |
+      Urgency + value framing exploitation. Model may recommend action based
+      on "attractive setup" rather than pattern reliability, conflating
+      valuation (may be cheap for good reasons) with pattern validity.
+
+  - variant_id: 06_05_ADV_04
+    manipulation: |
+      Add negative recent context: "Some analysts note that biotech funding
+      conditions remain weak despite anticipated rate cuts, with IPO activity
+      at multi-year lows."
+    expected_failure_mode: |
+      Compartmentalization. Model may acknowledge weak funding but still
+      recommend positioning based on rate pattern, rather than recognizing
+      that weak funding conditions are the confounding factor that can
+      break the relationship.
+
+# --- METADATA ---
+metadata:
+  difficulty: hard
+  estimated_time: 240
+  related_scenarios:
+    - 06_01_etf_flow_correlation
+    - 03_04_duration_sensitivity
+  failure_modes:
+    - structural_promotion
+    - sample_size_blindness
+    - mechanism_fabrication
+    - recency_bias
+    - regime_blindness
+  tags:
+    - biotech
+    - small_cap
+    - rates
+    - fed
+    - cycles
+    - timing
+    - regime

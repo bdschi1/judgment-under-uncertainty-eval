@@ -1,0 +1,259 @@
+id: 06_03_low_vol_healthcare_services
+module: 06_spurious_correlation_and_fragility
+version: 1.0
+last_updated: 2024-01-15
+
+# --- SCENARIO ---
+title: Low-Volatility Factor Performance in Healthcare Services
+domain: Healthcare Services
+relationship_type: regime_dependent
+
+observed_relationship: |
+  A low-volatility factor strategy within healthcare services (overweighting
+  names with below-median historical volatility, underweighting high-volatility
+  names) has generated 300bps of annual outperformance over the past 7 years
+  with a Sharpe ratio of 0.8. The strategy has been particularly effective
+  during market drawdowns.
+
+context: |
+  Healthcare services includes managed care organizations (MCOs), pharmacy
+  benefit managers (PBMs), healthcare facilities, and healthcare IT. The
+  sub-sector is seen as "defensive" within healthcare due to steady
+  utilization and recurring revenue models. Low-volatility strategies
+  have been popular in the broader market following academic research
+  demonstrating the "low-volatility anomaly."
+
+# --- TASK ---
+task: |
+  1. Classify this relationship (structural, regime-dependent, coincidental
+     but exploitable, or non-actionable noise)
+  2. Identify factors that could cause this relationship to break down
+  3. Specify how this strategy should be treated in portfolio management
+
+# --- GRADING ---
+grading_axes:
+  classification:
+    weight: 3
+    correct_answer: regime_dependent
+    notes: |
+      This is regime-dependent, not structural alpha. The low-volatility factor
+      works primarily in risk-off / defensive environments. 7 years of data
+      includes mostly benign conditions for healthcare services. The "alpha"
+      is largely explained by factor exposure, not stock selection skill.
+
+      "Coincidental exploitable" is partial credit — captures that it's not
+      structural but misses the factor/regime explanation.
+
+      "Structural" is a critical error — this is factor exposure, not alpha.
+
+  fragility:
+    weight: 3
+    key_factors:
+      - Regime shift to risk-on / factor rotation (low-vol underperforms in rallies)
+      - Healthcare services-specific shock (regulatory, policy change)
+      - Crowding in low-vol strategies generally (well-documented factor)
+      - Historical period includes favorable conditions (no major MCO disruption)
+      - Low-vol names may have hidden risks (why are they low-vol? selection bias?)
+      - Factor timing risk (entry point matters for factor strategies)
+    notes: |
+      Critical insight: the 7-year period may not include a true stress test
+      for healthcare services specifically. Low-vol works until it doesn't.
+
+  risk_treatment:
+    weight: 3
+    valid_treatments:
+      - Recognize this as factor exposure, not alpha — size accordingly
+      - Monitor factor valuations (low-vol premium vs. history)
+      - Expect underperformance in risk-on environments
+      - Do not attribute outperformance to stock selection skill
+      - Consider whether low-vol in healthcare services is actually safer
+      - Hedge factor exposure if unintended (e.g., via factor-neutral construction)
+    invalid_treatments:
+      - Treating 300bps as "alpha" to project forward
+      - Increasing exposure because the strategy "works"
+      - Using Sharpe ratio as evidence of skill vs. factor loading
+      - Assuming low-vol protection will persist through all drawdowns
+    notes: |
+      The key treatment question: is this factor exposure you want, or are
+      you inadvertently taking a factor bet while thinking you have alpha?
+
+  critical_error:
+    failure_condition: |
+      Treating the low-volatility factor return as stock-picking alpha or
+      structural skill. Specifically:
+      - "This demonstrates alpha generation in healthcare services"
+      - "The Sharpe of 0.8 indicates skill in name selection"
+      - Projecting 300bps forward without acknowledging factor dependence
+      - Ignoring that low-vol is a well-known, crowded factor
+
+# --- ANCHOR ANSWERS ---
+anchor_answers:
+  strong:
+    score: 11
+    response: |
+      **Classification:** This is regime-dependent factor exposure, not alpha.
+      The low-volatility anomaly is well-documented academically and has been
+      arbitraged by factor funds for years. The 300bps "outperformance" is
+      almost certainly explained by the low-vol factor loading, not stock
+      selection skill within healthcare services. The strong Sharpe ratio
+      and drawdown protection are characteristics of low-vol strategies
+      generally — this is what the factor does.
+
+      **Fragility factors:**
+      (1) Factor regime risk: Low-vol strategies underperform significantly
+      in risk-on environments and sharp rallies. The 7-year period likely
+      includes conditions favorable to defensive positioning.
+      (2) Factor crowding: Low-vol has attracted substantial assets over the
+      past decade. Crowding typically degrades factor returns and can lead
+      to violent reversals when positioning unwinds.
+      (3) Healthcare services-specific regime risk: The period may not include
+      a true stress test for the sub-sector (e.g., Medicare-for-All scare,
+      major PBM disruption, MCO regulatory shock). Low-vol names in healthcare
+      services may not protect against healthcare-specific drawdowns.
+      (4) Valuation spread: If low-vol names have been bid up relative to
+      high-vol names, the premium may be exhausted.
+      (5) Selection bias: Why are these names low-volatility? It may reflect
+      complacency rather than genuine stability. Low realized vol can precede
+      large moves.
+
+      **Risk treatment:**
+      (1) Do NOT treat the 300bps as alpha to project forward. This is factor
+      return, which is time-varying, regime-dependent, and already crowded.
+      (2) Explicitly acknowledge this as a low-vol factor bet. If you want
+      low-vol exposure, take it intentionally. If you want healthcare services
+      alpha, construct a factor-neutral strategy.
+      (3) Expect underperformance in risk-on environments. Do not be surprised
+      or abandon the strategy when it lags during rallies — that's the trade-off.
+      (4) Monitor factor valuations and crowding. If low-vol premium is at
+      historical highs, consider reducing exposure.
+      (5) Consider whether low-vol within healthcare services provides the
+      protection you want. A healthcare policy shock would likely hit all
+      healthcare services names, low-vol or not.
+      (6) Size this as a factor tilt, not an alpha strategy — factor tilts
+      warrant lower sizing than idiosyncratic alpha.
+    notes: |
+      Correctly identifies factor exposure, not alpha.
+      Explains why Sharpe ratio doesn't indicate skill.
+      Multiple fragility factors including healthcare-specific risks.
+      Risk treatment separates intentional factor exposure from inadvertent.
+
+  acceptable:
+    score: 7
+    response: |
+      This looks like a low-volatility factor strategy rather than true alpha.
+      The low-vol anomaly is well-known in academic literature and has been
+      traded by factor funds for years. The 300bps is probably factor return,
+      not stock selection skill.
+
+      The strategy will likely struggle in risk-on environments when investors
+      rotate to higher-beta names. Seven years is also a limited period —
+      it may not include conditions that would truly test healthcare services.
+      Low-vol strategies have also become crowded, which typically degrades
+      future returns.
+
+      I'd be cautious about projecting this performance forward. It's factor
+      exposure, and factors are cyclical. If using this approach, size it
+      as a factor tilt rather than a conviction position.
+    notes: |
+      Correct identification of factor exposure.
+      Notes crowding and regime dependence.
+      Treatment directionally correct but lacks specifics on implementation.
+      Missing: deeper analysis of healthcare-specific fragility, valuation
+      spread discussion, explicit guidance on factor-neutral construction.
+      Scores: Classification 3, Fragility 2, Treatment 2. Total: 7.
+
+  failing:
+    score: 5
+    response: |
+      This is a compelling alpha strategy in healthcare services. The 300bps
+      annual outperformance over 7 years with a Sharpe of 0.8 demonstrates
+      consistent skill in identifying stable, high-quality healthcare services
+      companies that outperform their more volatile peers.
+
+      The intuition makes sense: healthcare services companies with steady
+      business models (recurring revenue, defensive utilization patterns)
+      should command premium valuations and deliver more consistent returns.
+      The strong drawdown protection confirms the strategy captures
+      fundamental quality.
+
+      Based on this track record, I would size this strategy as a core
+      component of the healthcare allocation. The 7-year history provides
+      confidence in the approach, and the 0.8 Sharpe indicates skill rather
+      than luck. I would project similar risk-adjusted returns going forward,
+      potentially increasing allocation if market conditions become more
+      uncertain.
+    notes: |
+      CRITICAL ERROR COMMITTED:
+      - Treats factor return as "alpha" and "skill"
+      - Uses Sharpe ratio as evidence of skill (it's not)
+      - Invents fundamental story ("fundamental quality") for factor exposure
+      - Projects returns forward without acknowledging factor regime dependence
+      - Sizes as "core component" based on factor backtest
+
+      This is the classic mistake of confusing factor exposure with stock
+      selection alpha. The strategy "works" but not for the reasons stated,
+      and it will stop working in exactly the environments where the
+      stated reasoning would predict it should work best.
+
+# --- ADVERSARIAL VARIANTS ---
+adversarial_variants:
+  - variant_id: 06_03_ADV_01
+    manipulation: |
+      Add fundamental narrative: "The strategy's holdings are concentrated
+      in companies with strong free cash flow, high returns on capital, and
+      long-term contracts — suggesting the low-volatility screen captures
+      fundamental quality rather than just statistical characteristics."
+    expected_failure_mode: |
+      Mechanism acceptance. Model may accept that low-vol proxies for
+      "quality" and upgrade classification toward structural, missing
+      that this is still factor exposure with the same fragility.
+
+  - variant_id: 06_03_ADV_02
+    manipulation: |
+      Add track record extension: "The strategy has now outperformed in
+      8 consecutive years, including during the 2022 market drawdown,
+      further validating its defensive characteristics."
+    expected_failure_mode: |
+      Track record extrapolation. Model may view extended outperformance
+      as evidence of robustness rather than recognizing that 2022 was a
+      favorable environment for low-vol strategies (risk-off year).
+
+  - variant_id: 06_03_ADV_03
+    manipulation: |
+      Add differentiation claim: "Unlike generic low-vol strategies, this
+      approach uses healthcare services domain expertise to identify
+      truly stable business models, not just low historical volatility."
+    expected_failure_mode: |
+      Skill attribution. Model may accept that domain expertise transforms
+      factor exposure into alpha, rather than recognizing that stock
+      selection within a factor screen doesn't change the factor exposure.
+
+  - variant_id: 06_03_ADV_04
+    manipulation: |
+      Frame as underperforming recently: "The strategy has underperformed
+      by 150bps in the past 6 months during the market rally. Some are
+      questioning whether the approach still works."
+    expected_failure_mode: |
+      Recency bias reversal. Model may recommend abandoning the strategy
+      based on recent underperformance, rather than recognizing this is
+      expected factor behavior (low-vol lags in rallies).
+
+# --- METADATA ---
+metadata:
+  difficulty: medium
+  estimated_time: 180
+  related_scenarios:
+    - 05_02_factor_attribution
+    - 03_03_factor_exposure_sizing
+  failure_modes:
+    - structural_promotion
+    - mechanism_fabrication
+    - regime_blindness
+    - sample_size_blindness
+  tags:
+    - healthcare_services
+    - factor
+    - low_vol
+    - sharpe
+    - alpha
+    - factor_exposure
