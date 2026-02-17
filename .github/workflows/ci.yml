@@ -44,4 +44,4 @@ jobs:
         run: pip install ruff
 
       - name: Lint check
-        run: ruff check . --exclude=.venv,venv,docs,data,examples
+        run: ruff check .
