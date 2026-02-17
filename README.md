@@ -1,5 +1,10 @@
 # Judgment Under Uncertainty Eval
 
+[![CI](https://github.com/bdschi1/judgment-under-uncertainty-eval/actions/workflows/ci.yml/badge.svg)](https://github.com/bdschi1/judgment-under-uncertainty-eval/actions)
+![Python 3.10+](https://img.shields.io/badge/python-3.10%2B-blue)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+![Tests](https://img.shields.io/badge/tests-47%20passed-brightgreen)
+
 Domain-expert evaluation framework for testing whether AI models can separate alpha from environmental exposure, manage risk ex-ante, and avoid seductive but dangerous reasoning patterns — focused on healthcare investing.
 
 > The failure mode we care about most: **confidently dying** — producing answers that sound intelligent, tell coherent stories, and quietly convert correlation into conviction.
