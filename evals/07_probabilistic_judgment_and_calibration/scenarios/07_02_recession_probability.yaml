@@ -1,0 +1,332 @@
+id: 07_02_recession_probability
+module: 07_probabilistic_judgment_and_calibration
+version: 1.0
+last_updated: 2024-01-15
+
+# --- SCENARIO ---
+title: 12-Month Recession Probability and Healthcare Portfolio Impact
+domain: Healthcare Services
+relationship_type: regime_dependent
+
+observed_relationship: |
+  The 2-year/10-year Treasury yield curve has been inverted for 18 months.
+  Historically, 6 out of 7 yield curve inversions since 1970 have preceded
+  a recession within 24 months, giving a base rate of approximately 86%.
+  The consensus among surveyed economists places the 12-month recession
+  probability at 35%. The portfolio under management has significant
+  exposure to utilization-sensitive hospital operators and outpatient
+  service providers whose volumes are correlated with employment and
+  insurance coverage.
+
+context: |
+  Current macro conditions present mixed signals. Unemployment remains at
+  3.8% (historically low), consumer spending is resilient, and the services
+  sector continues to expand. However, the ISM Manufacturing PMI has been
+  below 50 for 8 consecutive months, corporate earnings revisions are net
+  negative, and bank lending standards have tightened meaningfully. The Fed
+  has held rates at elevated levels for over a year. Some economists argue
+  that quantitative easing and post-COVID fiscal stimulus have distorted
+  the yield curve signal, reducing its predictive power in the current cycle.
+  Others note that the duration of the inversion (18 months) exceeds most
+  historical episodes, which may signal either stronger or weaker
+  predictive power depending on the framework used.
+
+# --- TASK ---
+task: |
+  1. Estimate the probability of a US recession beginning within 12 months,
+     expressing a range rather than a point estimate
+  2. Reconcile the yield curve signal (86% historical) with the economist
+     consensus (35%) and explain which you weight more heavily
+  3. Identify the key factors that could cause the yield curve signal to
+     fail in this cycle
+  4. Assess the portfolio impact under your recession probability estimate
+     and recommend positioning adjustments
+
+# --- GRADING ---
+grading_axes:
+  classification:
+    weight: 3
+    correct_answer: regime_dependent
+    notes: |
+      The yield curve's predictive power is regime-dependent: it has a
+      strong historical track record but the current monetary policy regime
+      (post-QE, elevated Fed balance sheet) may distort the signal. The
+      relationship is not structural (7 observations is too few) and not
+      noise (the mechanism is plausible). Economist consensus at 35% may
+      reflect recency bias (no recession yet despite long inversion) or
+      genuine structural-break reasoning.
+
+      Treating the yield curve as infallible (86% = probability) is base-rate
+      misapplication from a tiny sample.
+      Dismissing the yield curve entirely because "this time is different"
+      is a critical error if done without rigorous reasoning.
+
+  fragility:
+    weight: 3
+    key_factors:
+      - Extremely small sample size (7 inversions, 6 recessions)
+      - QE and Fed balance sheet distortion of term premium
+      - Post-COVID fiscal stimulus may have altered cycle dynamics
+      - Duration of inversion (18 months) is atypical — unclear directional implication
+      - Yield curve is a single indicator, not a sufficient statistic
+      - Economist consensus may embed different information (labor data, spending)
+      - Healthcare-specific factors (ACA, Medicaid expansion) change recession sensitivity
+      - Lag variability (6-24 months historically) makes 12-month framing imprecise
+    notes: |
+      The critical insight is that 7 observations cannot support a precise
+      probability estimate. The yield curve provides information, but converting
+      6/7 into an 86% probability is a misuse of frequentist statistics on
+      a tiny, non-stationary sample.
+
+  risk_treatment:
+    weight: 3
+    valid_treatments:
+      - Stress-test hospital portfolio for volume declines of 5-15%
+      - Tilt toward counter-cyclical healthcare (managed care, pharma) vs. cyclical (hospitals)
+      - Reduce exposure to utilization-sensitive names with high fixed costs and leverage
+      - Maintain positions but add recession hedges (puts on hospital operators, long duration)
+      - Monitor leading indicators (initial claims, bank lending) for deterioration
+      - Scenario analysis with explicit probability weights rather than single-scenario planning
+    invalid_treatments:
+      - Ignoring recession risk because unemployment is low
+      - Fully de-risking based on yield curve signal alone
+      - Using 86% as the portfolio planning probability
+      - Treating economist consensus (35%) as correct without independent judgment
+    notes: |
+      Treatment must reflect genuine uncertainty (neither 86% nor 35% should
+      be taken at face value) and focus on portfolio resilience rather than
+      binary recession/no-recession positioning.
+
+  critical_error:
+    failure_condition: |
+      Adopting either extreme without nuance. Specifically:
+      - "The yield curve has an 86% success rate, so recession is near-certain"
+      - "Economists say 35%, the yield curve is distorted, so no meaningful risk"
+      - Ignoring the small-N problem with the yield curve entirely
+      - False precision: "The probability is exactly 42%"
+      - No portfolio impact analysis despite explicit healthcare exposure
+      - Recommending dramatic portfolio changes on a single indicator
+
+# --- ANCHOR ANSWERS ---
+anchor_answers:
+  strong:
+    score: 11
+    response: |
+      **Probability estimate:** I estimate the 12-month recession probability
+      in the range of 30-45%, with a central estimate around 38%. This reflects
+      meaningful recession risk that exceeds "normal" background rates (~15-20%
+      in any given year) but falls well below the raw yield curve signal.
+
+      **Reconciling the yield curve and economist consensus:**
+      The yield curve's 6/7 historical track record provides genuine information
+      but cannot be mechanically converted to an 86% probability. Seven observations
+      drawn from different monetary regimes, fiscal environments, and global
+      conditions do not constitute a stable statistical sample. The base rate is
+      informative directionally — inversions signal elevated risk — but the precise
+      number (86%) carries wide confidence intervals. With a binomial distribution
+      and n=7, even assuming true probability of 70%, observing 6 or more "hits"
+      is not unlikely. The true signal strength is somewhere between the naive 86%
+      and pure chance.
+
+      The economist consensus at 35% may incorporate information the yield curve
+      does not: labor market strength, consumer balance sheets, fiscal policy
+      offsets. However, consensus economists also exhibit herding behavior and
+      have historically been poor at forecasting recessions in real time. The
+      consensus may underweight the yield curve signal due to "this time is
+      different" reasoning, which has a poor track record of its own.
+
+      I weight neither source as authoritative. Instead, I integrate:
+      (1) Yield curve inversion: directionally informative, elevates base probability,
+      but magnitude uncertain. Adjusting for QE distortion, I weight this as
+      consistent with 50-65% recession probability.
+      (2) Economist consensus: 35% likely too low given the yield curve, but
+      incorporates valid information about labor market resilience.
+      (3) Mixed macro data: Manufacturing contraction vs. services expansion,
+      low unemployment vs. tightening lending standards. Net assessment: modestly
+      recessionary lean but not decisive.
+      (4) Historical lag: 18 months into inversion with typical lag of 6-24 months
+      means we are in the higher-risk portion of the historical window.
+
+      Blending these inputs with appropriate uncertainty yields 30-45%.
+
+      **Yield curve failure factors:**
+      (1) QE has permanently altered term premia — the curve may be inverted
+      due to Fed holdings suppressing long rates, not due to recessionary
+      expectations. This is the strongest "structural break" argument.
+      (2) Post-COVID fiscal stimulus (infrastructure spending, IRA, CHIPS Act)
+      may be providing an economic floor that previous cycles lacked.
+      (3) The 18-month duration of inversion is unusual and may indicate the
+      curve is reflecting technical factors rather than economic signals.
+      (4) Globalization of bond markets means foreign demand for US Treasuries
+      can flatten/invert the curve for non-domestic-recession reasons.
+
+      **Portfolio positioning:**
+      At 30-45% recession probability, I would not de-risk dramatically but
+      would take defensive steps:
+      (1) Stress-test hospital operators for 8-12% volume declines — this is
+      the realistic recession scenario for utilization-sensitive names.
+      (2) Reduce positions in highly leveraged hospital operators (HCA, CHS)
+      by 25-30% and redirect toward managed care (UNH, ELV) which benefits
+      from lower utilization in a recession.
+      (3) Add tail hedges: buy 6-month puts on XLV or specific hospital names,
+      funded by selling upside calls to create zero-cost collars.
+      (4) Increase cash buffer by 2-3% to provide dry powder if recession
+      creates buying opportunities.
+      (5) Monitor weekly initial claims, monthly bank lending survey, and ISM
+      manufacturing as leading indicators for probability revision.
+    notes: |
+      Probability range (30-45%) falls within ground truth range [25, 50].
+      Explicitly reconciles yield curve and economist consensus with reasoning.
+      Addresses small-N problem and QE distortion as key limitations.
+      Portfolio treatment is specific, proportional, and tied to the healthcare
+      sector. No false precision, no single-indicator dependence.
+
+  acceptable:
+    score: 7
+    response: |
+      I would estimate the 12-month recession probability at around 35-45%. The
+      yield curve inversion is a concerning signal with a strong historical track
+      record, but the sample size is very small (only 7 inversions) and the current
+      monetary policy environment with QE may have distorted the signal.
+
+      The economist consensus at 35% seems reasonable but possibly slightly too
+      low given the yield curve and manufacturing weakness. The low unemployment
+      rate is reassuring but is often a lagging indicator.
+
+      For the portfolio, the utilization-sensitive hospital stocks are most at risk
+      in a recession. I would consider reducing exposure to the most leveraged
+      hospital operators and tilting toward more defensive healthcare names like
+      managed care or pharma. Adding some hedges would be prudent given the
+      uncertainty.
+    notes: |
+      Probability range (35-45%) is within ground truth range.
+      Acknowledges yield curve limitations and small-N problem.
+      Directionally correct portfolio recommendations but lacks specificity
+      on sizing, hedge structure, and monitoring triggers.
+      Scores: Classification 2, Fragility 2, Treatment 2. Total: 6-7.
+
+  failing:
+    score: 4
+    response: |
+      Based on the yield curve inversion, the recession probability is
+      approximately 85%. The 2yr/10yr curve has inverted, and historically
+      this has preceded a recession 6 out of 7 times, giving a reliable base
+      rate of 86%. The current inversion has persisted for 18 months, which
+      if anything strengthens the signal by indicating sustained stress in
+      fixed income markets.
+
+      The economist consensus of 35% is far too low and reflects complacency.
+      Economists have a poor track record of forecasting recessions, and the
+      low unemployment rate is a classic lagging indicator that provides false
+      comfort. The manufacturing contraction and tightening lending standards
+      confirm that recessionary dynamics are already underway.
+
+      Given the near-certainty of recession, I would aggressively de-risk the
+      healthcare portfolio. Hospital operators should be sold entirely, as their
+      utilization-sensitive business models will face severe volume declines.
+      The entire portfolio should be shifted to cash and defensive names like
+      pharma and managed care. This is not a time for half-measures — the yield
+      curve signal is one of the most reliable leading indicators in
+      macroeconomics, and ignoring it would be irresponsible. The 18-month
+      inversion duration strongly suggests we are in the final months before
+      a downturn begins.
+    notes: |
+      CRITICAL ERROR COMMITTED:
+      - Treats 6/7 as precise 86% probability (sample size blindness)
+      - Dismisses economist consensus entirely without balanced analysis
+      - Ignores QE distortion and structural-break arguments
+      - Converts probability estimate directly into "near-certainty"
+      - Recommends "sell entirely" — binary action on probabilistic assessment
+      - No uncertainty range — single point estimate of ~85%
+      - Overconfident extrapolation of inversion duration significance
+
+      This answer demonstrates base-rate misapplication (tiny N treated as
+      precise probability), overconfidence, and binary thinking that converts
+      uncertainty into false certainty. The aggressive de-risking recommendation
+      is disproportionate even if recession probability were 85%.
+
+# --- ADVERSARIAL VARIANTS ---
+adversarial_variants:
+  - variant_id: 07_02_ADV_01
+    manipulation: |
+      Add confirming indicator: "The Conference Board's Leading Economic Index
+      (LEI) has declined for 20 consecutive months, which has preceded every
+      recession since 1960 with zero false positives."
+    expected_failure_mode: |
+      Indicator stacking without independence assessment. Model may add the
+      LEI signal to the yield curve signal, compounding probabilities as if
+      the indicators were independent. In reality, the LEI includes the yield
+      curve as a component, so this is double-counting.
+
+  - variant_id: 07_02_ADV_02
+    manipulation: |
+      Add "this time is different" framing: "Several prominent economists argue
+      that the yield curve has been structurally broken since QE began. The last
+      two inversions (2019-2020 and current) may simply reflect term premium
+      distortion rather than recessionary expectations."
+    expected_failure_mode: |
+      Overweighting the "broken" narrative. Model may dismiss the yield curve
+      entirely based on the structural-break argument, failing to recognize
+      that "this time is different" has historically been a dangerous phrase,
+      and that the 2019-2020 inversion DID precede a recession (albeit caused
+      by COVID, not typical cycle dynamics).
+
+  - variant_id: 07_02_ADV_03
+    manipulation: |
+      Add urgency framing: "Your largest hospital operator holding reports
+      earnings next week and is trading at 52-week lows. Several sell-side
+      analysts have downgraded the sector citing recession fears."
+    expected_failure_mode: |
+      Action bias under urgency. Model may recommend immediate selling or
+      dramatic repositioning based on the near-term earnings catalyst rather
+      than the probabilistic recession assessment. The correct approach is
+      to separate the recession probability analysis from short-term
+      trading decisions.
+
+# --- CALIBRATION AXES ---
+calibration_axes:
+  probability_estimate:
+    ground_truth_range: [25, 50]
+  uncertainty_acknowledgment:
+    weight: 2
+    criteria: |
+      Does the model express a probability RANGE rather than a point estimate?
+      Does it acknowledge the deep uncertainty inherent in macroeconomic
+      forecasting? Does it avoid false precision?
+    scoring:
+      0: Single point estimate with no uncertainty acknowledgment
+      1: Point estimate with vague hedge ("around," "roughly")
+      2: Explicit range with reasoning for bounds
+  base_rate_integration:
+    weight: 2
+    criteria: |
+      Does the model reference the yield curve's historical base rate (6/7)?
+      Does it adjust for the current regime (QE distortion, mixed signals)?
+      Does it acknowledge the small-N limitation?
+    scoring:
+      0: No base rate reference or mechanical acceptance of 86%
+      1: References base rate but adjusts without addressing small-N
+      2: References base rate, adjusts with regime reasoning, acknowledges small-N
+
+# --- METADATA ---
+metadata:
+  difficulty: hard
+  estimated_time: 300
+  related_scenarios:
+    - 06_05_smallcap_biotech_rates
+    - 07_05_interest_rate_direction
+    - 03_04_duration_sensitivity
+  failure_modes:
+    - overconfidence
+    - false_precision
+    - base_rate_neglect
+    - base_rate_misapplication
+    - market_price_anchoring
+  tags:
+    - macro
+    - recession
+    - yield_curve
+    - healthcare
+    - hospitals
+    - calibration
+    - regime

@@ -193,3 +193,99 @@ class TestScenarioConsistency:
             assert (module_06_dir / scenario).exists(), (
                 f"Expected scenario not found: {scenario}"
             )
+
+
+class TestModule07Scenarios:
+    """Tests specific to Module 07 probabilistic judgment scenarios."""
+
+    MODULE_07_DIR = EVALS_DIR / "07_probabilistic_judgment_and_calibration" / "scenarios"
+    EXPECTED_SCENARIOS = [
+        "07_01_fda_binary_outcome.yaml",
+        "07_02_recession_probability.yaml",
+        "07_03_earnings_beat_miss.yaml",
+        "07_04_merger_completion.yaml",
+        "07_05_interest_rate_direction.yaml",
+    ]
+
+    def test_module_07_has_all_scenarios(self):
+        """Test that Module 07 has all expected scenarios."""
+        for scenario in self.EXPECTED_SCENARIOS:
+            assert (self.MODULE_07_DIR / scenario).exists(), (
+                f"Expected scenario not found: {scenario}"
+            )
+
+    @pytest.mark.parametrize(
+        "scenario_file",
+        [
+            EVALS_DIR / "07_probabilistic_judgment_and_calibration" / "scenarios" / s
+            for s in [
+                "07_01_fda_binary_outcome.yaml",
+                "07_02_recession_probability.yaml",
+                "07_03_earnings_beat_miss.yaml",
+                "07_04_merger_completion.yaml",
+                "07_05_interest_rate_direction.yaml",
+            ]
+        ],
+    )
+    def test_module_07_scenarios_have_calibration_axes(self, scenario_file):
+        """Test that Module 07 scenarios include calibration scoring data."""
+        with open(scenario_file) as f:
+            data = yaml.safe_load(f)
+        assert "calibration_axes" in data, (
+            f"{scenario_file.name} missing calibration_axes (required for Module 07)"
+        )
+
+    @pytest.mark.parametrize(
+        "scenario_file",
+        [
+            EVALS_DIR / "07_probabilistic_judgment_and_calibration" / "scenarios" / s
+            for s in [
+                "07_01_fda_binary_outcome.yaml",
+                "07_02_recession_probability.yaml",
+                "07_03_earnings_beat_miss.yaml",
+                "07_04_merger_completion.yaml",
+                "07_05_interest_rate_direction.yaml",
+            ]
+        ],
+    )
+    def test_module_07_calibration_axes_have_ground_truth_range(self, scenario_file):
+        """Test that calibration axes include valid ground truth probability range."""
+        with open(scenario_file) as f:
+            data = yaml.safe_load(f)
+        cal = data.get("calibration_axes", {})
+        assert "probability_estimate" in cal, (
+            f"{scenario_file.name} calibration_axes missing probability_estimate"
+        )
+        pe = cal["probability_estimate"]
+        assert "ground_truth_range" in pe, (
+            f"{scenario_file.name} probability_estimate missing ground_truth_range"
+        )
+        gtr = pe["ground_truth_range"]
+        assert isinstance(gtr, list) and len(gtr) == 2, (
+            f"{scenario_file.name} ground_truth_range must be [low, high]"
+        )
+        assert 0 <= gtr[0] < gtr[1] <= 100, (
+            f"{scenario_file.name} ground_truth_range must be valid percentages"
+        )
+
+    @pytest.mark.parametrize(
+        "scenario_file",
+        [
+            EVALS_DIR / "07_probabilistic_judgment_and_calibration" / "scenarios" / s
+            for s in [
+                "07_01_fda_binary_outcome.yaml",
+                "07_02_recession_probability.yaml",
+                "07_03_earnings_beat_miss.yaml",
+                "07_04_merger_completion.yaml",
+                "07_05_interest_rate_direction.yaml",
+            ]
+        ],
+    )
+    def test_module_07_task_requests_probability(self, scenario_file):
+        """Test that Module 07 tasks ask for explicit probability estimates."""
+        with open(scenario_file) as f:
+            data = yaml.safe_load(f)
+        task = data.get("task", "").lower()
+        assert "probability" in task or "probabilities" in task, (
+            f"{scenario_file.name} task should request explicit probability estimates"
+        )

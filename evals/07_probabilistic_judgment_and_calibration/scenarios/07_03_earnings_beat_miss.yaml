@@ -1,0 +1,275 @@
+id: 07_03_earnings_beat_miss
+module: 07_probabilistic_judgment_and_calibration
+version: 1.0
+last_updated: 2024-01-15
+
+# --- SCENARIO ---
+title: Earnings Beat/Miss Probability for Large-Cap Pharma
+domain: Pharma
+relationship_type: coincidental_exploitable
+
+observed_relationship: |
+  A large-cap pharma company ($80B market cap) has beaten consensus EPS
+  estimates in 14 of the last 16 quarters (88% beat rate), with an average
+  beat magnitude of 4.2%. The broader S&P 500 healthcare sector has a
+  historical quarterly beat rate of approximately 72%. The company's next
+  earnings report is in 3 weeks. Consensus expects $2.85 EPS. However,
+  the company faces a major patent cliff on its largest drug (28% of revenue)
+  with generic entry expected within 6 months. Management guided $2.80-2.90
+  on the last call but noted "increasing headwinds from generic competition
+  in the coming quarters."
+
+context: |
+  The company's historical beat rate has been driven by conservative guidance
+  practices (management consistently sandbags estimates by 3-5%), cost
+  discipline, and a diversified portfolio that masks individual product
+  underperformance. The patent cliff changes the structural dynamics:
+  generic entry will create a step-function revenue decline that cannot be
+  offset by the typical earnings management levers (timing of R&D expenses,
+  one-time items, share buybacks). Several sell-side analysts have noted
+  that the consensus estimates "may not fully reflect the steepness of the
+  generic erosion curve." Short interest has increased from 1.2% to 3.1%
+  of float over the past quarter.
+
+# --- TASK ---
+task: |
+  1. Estimate the probability that the company beats consensus EPS of $2.85,
+     expressing both a point estimate and a defensible range
+  2. Explain whether the historical 88% beat rate is a reliable base rate for
+     this quarter, and what adjustments are needed
+  3. Identify the key factors that could cause the historical pattern to break
+  4. Recommend how to position around the earnings event given your probability
+     estimate
+
+# --- GRADING ---
+grading_axes:
+  classification:
+    weight: 3
+    correct_answer: coincidental_exploitable
+    notes: |
+      The historical beat rate is coincidental-exploitable: driven by management's
+      conservative guidance practices (systematic sandbagging) rather than any
+      structural superiority. This pattern has been exploitable historically but
+      the patent cliff represents a regime change that undermines the mechanism
+      (guidance games cannot offset a 28% revenue loss). The beat streak is
+      coincidental to the extent that it reflects earnings management rather
+      than genuine outperformance.
+
+  fragility:
+    weight: 3
+    key_factors:
+      - Patent cliff creates step-function revenue decline that guidance games cannot mask
+      - Historical beat rate driven by sandbagging, not fundamental outperformance
+      - Generic entry timing may not align neatly with quarterly estimates
+      - Management guidance language ("increasing headwinds") signals less confidence
+      - Rising short interest suggests informed investors expect deterioration
+      - Consensus may already partially reflect patent cliff concerns
+      - 16-quarter history may not be representative of post-cliff earnings dynamics
+    notes: |
+      The key fragility is that the mechanism driving the beat streak (conservative
+      guidance + diversified portfolio) is about to be disrupted by a structural
+      change (patent cliff). Past beat rate is not predictive of future beats
+      when the underlying earnings generation model is changing.
+
+  risk_treatment:
+    weight: 3
+    valid_treatments:
+      - Reduce expected beat probability relative to historical rate
+      - If trading the earnings event, size for the possibility of first miss in years
+      - Consider the asymmetric reaction (a miss after 14/16 beats will be punished more severely)
+      - Focus on forward guidance quality more than the backward-looking EPS number
+      - Use options to express a view on earnings surprise while defining risk
+    invalid_treatments:
+      - Extrapolating 88% beat rate into this quarter without adjustment
+      - Going long purely based on historical beat streak
+      - Ignoring the patent cliff as a structural break in earnings dynamics
+      - Treating management guidance as face-value reliable when incentives have shifted
+    notes: |
+      Treatment should reflect that even if a beat occurs this quarter, the
+      forward guidance will be critical and may trigger a sell-the-news response.
+
+  critical_error:
+    failure_condition: |
+      Applying the 88% historical beat rate without adjustment for the patent cliff.
+      Specifically:
+      - "The company has beaten 14/16 quarters, so probability of beating is ~88%"
+      - Ignoring the patent cliff as relevant to this quarter's earnings dynamics
+      - Treating the beat streak as evidence of persistent fundamental superiority
+      - No discussion of how generic entry changes the earnings management equation
+      - False precision on beat probability without acknowledging regime change
+
+# --- ANCHOR ANSWERS ---
+anchor_answers:
+  strong:
+    score: 11
+    response: |
+      Probability estimate: I estimate a 60-72% probability of beating the
+      $2.85 consensus, with a central estimate around 65%. This represents a
+      significant downward adjustment from the company's 88% historical beat rate.
+
+      Base rate adjustment: The 88% historical beat rate reflects a specific
+      mechanism — management's conservative guidance practices combined with a
+      diversified revenue base that provides multiple levers for managing quarterly
+      results. However, this quarter represents a potential inflection point:
+
+      (1) The patent cliff on the largest drug (28% of revenue) changes the earnings
+      equation fundamentally. Generic entry creates a revenue decline that cannot be
+      offset by the usual levers (timing R&D expenses, buyback accretion, one-time
+      items). The scale of the cliff likely exceeds the typical 3-5% guidance buffer.
+
+      (2) Management's language ("increasing headwinds from generic competition")
+      represents a subtle but meaningful shift from their typical conservative-but-
+      optimistic tone. This suggests even management is less confident in their ability
+      to deliver the usual beat.
+
+      (3) The broader healthcare beat rate of 72% provides a more conservative baseline,
+      but even this may overstate the probability for a company approaching a structural
+      revenue decline.
+
+      (4) Rising short interest (1.2% to 3.1%) indicates informed market participants
+      are positioning for deterioration. While short interest alone is not predictive,
+      the magnitude of the increase is notable.
+
+      I adjust the probability down from 88% to 60-72% based on: patent cliff impact
+      (-10 to -15 pp), management signal weakening (-3 to -5 pp), consensus potentially
+      already adjusted (-2 to -5 pp partially offsetting, since lower consensus is
+      easier to beat).
+
+      Positioning: Even at 65% beat probability, I would not go long into earnings
+      because (1) the asymmetric price reaction to a miss after a long beat streak will
+      be severe (downside of 8-12% on a miss vs upside of 2-3% on a modest beat), and
+      (2) forward guidance will likely be the dominant driver, and patent cliff guidance
+      is likely to disappoint regardless of the backward-looking EPS number. If expressing
+      a view, I would use options with defined risk — perhaps a straddle if the implied
+      move underestimates the potential for a guidance-driven selloff even on an EPS beat.
+    notes: |
+      Probability range (60-72%) falls within ground truth range [65, 80].
+      Explicitly adjusts from historical beat rate with specific reasoning.
+      Identifies patent cliff as mechanism that disrupts the beat streak driver.
+      Sophisticated positioning that accounts for asymmetric reactions.
+
+  acceptable:
+    score: 7
+    response: |
+      I would estimate a 65-75% probability of beating the $2.85 consensus.
+      While the company has an impressive 88% beat rate, the approaching patent
+      cliff is a meaningful headwind that likely reduces the probability. The
+      historical beat rate was driven partly by conservative guidance practices,
+      and the generic entry may overwhelm those management levers.
+
+      The rising short interest and management's cautious language both suggest
+      the earnings dynamics are shifting. I would not extrapolate the 88% rate
+      into this quarter without meaningful adjustment.
+
+      For positioning, I would be cautious about going long into earnings given
+      that even a beat may be followed by disappointing forward guidance related
+      to the patent cliff.
+    notes: |
+      Probability range (65-75%) overlaps ground truth range.
+      Recognizes patent cliff as disruption to historical pattern.
+      Directionally correct but lacks quantitative adjustment framework.
+
+  failing:
+    score: 4
+    response: |
+      Based on the company's track record, I estimate an 85% probability of
+      beating the $2.85 consensus. The company has beaten in 14 of the last
+      16 quarters, demonstrating consistent execution and conservative guidance
+      practices. This is a management team that knows how to deliver.
+
+      The patent cliff is a longer-term concern but should not materially impact
+      this quarter's results, as generic entry is still 6 months away. Management
+      guided $2.80-2.90, and given their history of sandbags, the actual number
+      is likely above the range midpoint. The rising short interest may actually
+      create fuel for a short squeeze on a beat.
+
+      I would recommend going long into earnings to capture the expected beat
+      and potential short squeeze. The 88% historical beat rate gives high
+      confidence in this trade.
+    notes: |
+      CRITICAL ERROR COMMITTED:
+      - Applies historical beat rate nearly unchanged (85% vs 88%)
+      - Dismisses patent cliff as not relevant to this quarter
+      - Extrapolates guidance sandbagging without considering structural change
+      - Uses short interest as bullish catalyst rather than warning signal
+      - No uncertainty range — single point estimate
+      - No discussion of asymmetric earnings reactions
+
+# --- ADVERSARIAL VARIANTS ---
+adversarial_variants:
+  - variant_id: 07_03_ADV_01
+    manipulation: |
+      A respected sell-side analyst known for pharma earnings accuracy has
+      published an above-consensus estimate of $2.92, citing channel checks
+      showing stronger-than-expected demand for the company's oncology
+      portfolio, which should more than offset early generic erosion.
+    expected_failure_mode: |
+      Authority anchoring. Model may adopt the above-consensus estimate as
+      more reliable, inflating the beat probability without independently
+      assessing whether oncology strength can truly offset a 28% revenue
+      patent cliff.
+
+  - variant_id: 07_03_ADV_02
+    manipulation: |
+      The company has historically beaten in Q4 (the upcoming quarter) 100%
+      of the time over the last 6 years, as year-end cost management and
+      inventory builds by distributors create a seasonal tailwind.
+    expected_failure_mode: |
+      Reference class narrowing. Model may use the 100% Q4 beat rate instead
+      of the 88% overall rate, ignoring that the patent cliff represents a
+      structural break that seasonal patterns cannot overcome.
+
+  - variant_id: 07_03_ADV_03
+    manipulation: |
+      Options markets are pricing a 5% expected move on earnings, which is
+      below the stock's average 6.8% post-earnings move over the last 2 years.
+      This suggests the market is complacent about earnings risk.
+    expected_failure_mode: |
+      Market signal misinterpretation. Model may conclude that low implied
+      volatility means the market expects a beat, rather than recognizing
+      that implied volatility reflects hedging supply and demand, not
+      directional probability.
+
+# --- CALIBRATION AXES ---
+calibration_axes:
+  probability_estimate:
+    ground_truth_range: [65, 80]
+  uncertainty_acknowledgment:
+    weight: 2
+    criteria: |
+      Does the model express a probability RANGE? Does it acknowledge that
+      historical beat rates may not apply when structural conditions change?
+    scoring:
+      0: Single point estimate with no uncertainty acknowledgment
+      1: Point estimate with vague hedge
+      2: Explicit range with reasoning for bounds
+  base_rate_integration:
+    weight: 2
+    criteria: |
+      Does the model reference the 88% historical beat rate? Does it adjust
+      for the patent cliff and changing earnings dynamics? Does it explain
+      why the adjustment is warranted?
+    scoring:
+      0: No base rate reference or unadjusted extrapolation
+      1: References base rate but adjusts without clear mechanism reasoning
+      2: References base rate, adjusts with specific patent-cliff reasoning
+
+# --- METADATA ---
+metadata:
+  difficulty: medium
+  estimated_time: 180
+  related_scenarios:
+    - 04_01_earnings_quality
+    - 06_04_pharma_rd_tools
+  failure_modes:
+    - overconfidence
+    - base_rate_neglect
+    - authority_anchoring
+    - narrative_seduction
+  tags:
+    - pharma
+    - earnings
+    - patent_cliff
+    - calibration
+    - beat_rate
+    - consensus

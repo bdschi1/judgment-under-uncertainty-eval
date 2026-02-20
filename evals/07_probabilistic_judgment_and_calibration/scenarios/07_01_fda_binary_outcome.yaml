@@ -1,0 +1,311 @@
+id: 07_01_fda_binary_outcome
+module: 07_probabilistic_judgment_and_calibration
+version: 1.0
+last_updated: 2024-01-15
+
+# --- SCENARIO ---
+title: FDA PDUFA Binary Outcome Probability for Oncology NDA
+domain: Biotech
+relationship_type: regime_dependent
+
+observed_relationship: |
+  A mid-cap biotech ($4B market cap) has a Phase 3 oncology drug approaching
+  its PDUFA date. The pivotal trial met its primary overall survival (OS)
+  endpoint with HR=0.72 (p<0.001). The FDA Advisory Committee (Adcom) voted
+  9-4 in favor of approval. The historical base rate for FDA approval of
+  oncology drugs that meet their primary OS endpoint is approximately 85%.
+  Options-implied probability of approval is approximately 70%.
+
+context: |
+  The FDA has recently tightened scrutiny on novel oncology agents, particularly
+  around durability of response and long-term safety data. A Complete Response
+  Letter (CRL) was issued for a peer company's bispecific antibody in a related
+  indication two months ago, citing insufficient long-term follow-up despite
+  positive efficacy data. The drug under review uses a similar mechanism of
+  action (bispecific antibody) but targets a different tumor type. The company
+  has no other marketed products and has guided $400M in pre-launch inventory
+  build. Sell-side consensus assigns 80-90% approval probability. The stock
+  trades at $45 versus a Street target of $72 (approval) / $18 (rejection).
+
+# --- TASK ---
+task: |
+  1. Estimate the probability of FDA approval, expressing a range rather
+     than a point estimate
+  2. Identify the key base rates and explain how current conditions adjust them
+  3. Assess whether the options-implied 70% or the sell-side 80-90% better
+     reflects the true probability
+  4. Describe how your probability estimate should influence position sizing
+
+# --- GRADING ---
+grading_axes:
+  classification:
+    weight: 3
+    correct_answer: regime_dependent
+    notes: |
+      FDA approval probability is regime-dependent: historical base rates
+      provide a starting point, but the current regulatory environment
+      (tightened scrutiny, peer CRL) creates a regime shift that should
+      adjust the base rate downward. The 85% historical base rate is the
+      anchor, but current conditions justify a lower estimate.
+
+      Treating the 85% base rate as immutable is a critical error.
+      Treating the options-implied 70% as the answer without independent
+      analysis is market-price anchoring.
+      Ignoring the base rate entirely and estimating from scratch is
+      base-rate neglect.
+
+  fragility:
+    weight: 3
+    key_factors:
+      - FDA regulatory regime shift (tightened scrutiny, peer CRL for similar MOA)
+      - Adcom vote is advisory only — FDA disagrees with Adcom ~20% of the time
+      - Peer CRL creates precedent concern even with different tumor type
+      - Long-term safety/durability data adequacy is subjective FDA judgment
+      - Company has no other products (single-asset risk amplifies binary outcome)
+      - Pre-launch inventory build signals company confidence but is not evidence
+      - Sell-side conflict of interest (banking relationships inflate estimates)
+      - Options market may reflect hedging demand, not pure probability
+    notes: |
+      Strong answers identify that the 85% base rate, 9-4 Adcom vote, and
+      peer CRL each provide information that must be integrated, not
+      cherry-picked. The peer CRL is the key regime-shift factor.
+
+  risk_treatment:
+    weight: 3
+    valid_treatments:
+      - Position size calibrated to probability range, not point estimate
+      - Kelly criterion or fractional Kelly based on probability and payoff asymmetry
+      - Express view through options (defined risk) rather than equity alone
+      - Size for survival — max loss must be tolerable at rejection scenario ($18)
+      - Avoid binary bet sizing — this is a probability, not a certainty
+      - Diversify catalyst exposure across multiple PDUFA dates
+    invalid_treatments:
+      - Full conviction position based on 85% base rate or Adcom vote
+      - Ignoring the $45→$18 downside because "approval is likely"
+      - Using options-implied probability as position sizing input without adjustment
+      - Binary sizing (all-in or nothing) on a probabilistic outcome
+    notes: |
+      Position sizing must reflect the full probability distribution,
+      including the 20-30% rejection scenario and its magnitude ($45→$18).
+
+  critical_error:
+    failure_condition: |
+      Assigning probability above 90% or below 50% without extraordinary
+      justification. Specifically:
+      - "The Adcom voted in favor so approval is essentially certain"
+      - "The 85% base rate speaks for itself"
+      - Ignoring the peer CRL and regulatory regime shift entirely
+      - Treating options-implied probability as ground truth
+      - False precision: "The probability is exactly 78.3%"
+      - Recommending full position sizing on a binary catalyst
+
+# --- ANCHOR ANSWERS ---
+anchor_answers:
+  strong:
+    score: 11
+    response: |
+      **Probability estimate:** I estimate the probability of FDA approval in the
+      range of 72-82%, with a central estimate around 77%. This reflects a
+      meaningful downward adjustment from the 85% historical base rate for
+      oncology drugs meeting primary OS endpoints.
+
+      **Base rate analysis and regime adjustment:**
+      The 85% historical approval rate for oncology drugs with positive OS data
+      provides the natural starting anchor. However, several current-regime
+      factors warrant a downward revision:
+
+      (1) Regulatory regime shift: The FDA has signaled tightened scrutiny on
+      novel oncology agents, and the recent CRL for a peer bispecific antibody
+      is directly relevant. While the tumor type differs, the mechanism of action
+      similarity means the FDA's concerns about long-term follow-up and durability
+      of response likely carry over. I estimate this reduces the base rate by
+      5-8 percentage points.
+
+      (2) Adcom vote integration: The 9-4 Adcom vote is positive but not
+      overwhelming. Historically, the FDA follows Adcom recommendations
+      approximately 75-80% of the time, and the 4 dissenting votes signal
+      meaningful reservations. An Adcom vote does not reset the probability
+      to the vote ratio (69%) — it provides incremental information that should
+      be Bayesian-updated against the base rate. The close minority suggests
+      the FDA reviewers who briefed the committee likely raised concerns.
+
+      (3) Base rate conditioning: The 85% figure is for all oncology drugs
+      meeting primary OS endpoints across all regulatory environments. The
+      current environment is not the average environment — it's a tightened-
+      scrutiny regime. Conditional on this regime, the true base rate is likely
+      lower, perhaps 75-80%.
+
+      **Options-implied vs. sell-side:**
+      The options-implied 70% likely understates approval probability — options
+      markets for single-name biotechs reflect hedging demand and skew premia,
+      not pure risk-neutral probabilities. The sell-side 80-90% likely overstates
+      it — sell-side analysts face systematic conflicts (banking relationships,
+      access maintenance) and have historically been overconfident on PDUFA
+      outcomes. My independent estimate of 72-82% falls between these poles,
+      which is appropriate given that the truth is usually not at either extreme.
+
+      **Position sizing implications:**
+      (1) Size for the rejection scenario: At $45 with a $18 rejection target,
+      the downside is approximately 60%. Even at 77% approval probability, the
+      expected loss on rejection is 0.23 x 60% = ~14% position impact. This means
+      position sizing must be conservative enough that a 60% drawdown is survivable.
+      (2) I would cap exposure at 2-3% of portfolio NAV in equity, or express the
+      view through call spreads to define maximum risk.
+      (3) Fractional Kelly (quarter-Kelly) on the probability range suggests
+      1.5-3% of portfolio given the payoff asymmetry ($45→$72 upside vs $45→$18
+      downside, roughly 60% up / 60% down).
+      (4) Crucially, this is ONE binary event. Position sizing must reflect that
+      even well-calibrated 77% probabilities mean the adverse outcome occurs
+      roughly 1 in 4 times. No single PDUFA should represent a portfolio-defining bet.
+    notes: |
+      Probability range (72-82%) falls within ground truth range [70, 85].
+      Explicitly starts from base rate and adjusts downward with reasoning.
+      Integrates Adcom, peer CRL, and regime factors as Bayesian updates.
+      Correctly positions between options-implied and sell-side estimates.
+      Practical, specific position sizing tied to probability range.
+      No false precision, no overconfidence, no critical error.
+
+  acceptable:
+    score: 7
+    response: |
+      I would estimate the probability of approval at roughly 75-80%. The 85%
+      historical base rate is a good starting point, but the recent CRL for a
+      peer bispecific antibody and the FDA's tightened scrutiny suggest the
+      current probability is somewhat lower. The Adcom vote of 9-4 is positive
+      but the dissenting votes indicate some concern.
+
+      The options market at 70% seems slightly too pessimistic — it may reflect
+      hedging demand rather than pure probability. The sell-side at 80-90% seems
+      too optimistic given the regulatory headwinds. My estimate sits between the
+      two, which feels appropriate for an uncertain binary outcome.
+
+      I would size the position conservatively given the binary nature of the
+      catalyst, keeping exposure small enough that a rejection would not
+      meaningfully impact the portfolio. Options strategies could help define risk.
+    notes: |
+      Probability range (75-80%) is within ground truth range.
+      References base rate and adjusts directionally for regime shift.
+      Correctly identifies options and sell-side as bookends.
+      Lacks depth: no Bayesian updating framework, limited specificity on
+      sizing, does not quantify the downside scenario precisely.
+      Scores: Classification 2, Fragility 2, Treatment 2. Total: 6-7.
+
+  failing:
+    score: 4
+    response: |
+      The probability of FDA approval is approximately 85%. The pivotal trial
+      met its primary overall survival endpoint with highly significant results
+      (HR=0.72, p<0.001), and the Advisory Committee voted 9-4 in favor of
+      approval. The historical base rate for oncology drugs meeting primary OS
+      is 85%, and this drug clearly qualifies under that category.
+
+      The recent CRL for a peer bispecific antibody is not directly relevant
+      because it targeted a different tumor type. Each NDA is evaluated on its
+      own merits, and the strong efficacy data and favorable Adcom vote speak
+      for themselves. The sell-side consensus of 80-90% is well-calibrated and
+      reflects the strength of the data package.
+
+      The options market at 70% appears to be underpricing the approval
+      probability, which creates an attractive opportunity. Given the high
+      probability of approval and the significant upside to the $72 price
+      target, I would recommend a full position in the stock ahead of the
+      PDUFA date. The risk/reward is compelling: 85% chance of $72 versus
+      15% chance of $18, yielding expected value well above the current $45
+      price. This is a high-conviction catalyst trade.
+    notes: |
+      CRITICAL ERROR COMMITTED:
+      - Anchors to 85% base rate without any regime adjustment
+      - Dismisses peer CRL as irrelevant despite shared mechanism of action
+      - Accepts sell-side consensus uncritically (conflict of interest blindness)
+      - Treats options-implied as "underpricing" without considering own model risk
+      - Recommends "full position" on a binary catalyst — catastrophic sizing
+      - No uncertainty range expressed (false precision at 85%)
+      - No acknowledgment that 15% rejection probability on a 60% drawdown
+        requires conservative sizing
+
+      This answer demonstrates base-rate neglect (fails to adjust for regime),
+      overconfidence (single point estimate), and reckless position sizing.
+      Score capped due to critical error.
+
+# --- ADVERSARIAL VARIANTS ---
+adversarial_variants:
+  - variant_id: 07_01_ADV_01
+    manipulation: |
+      Add false precision anchor: "A quantitative model incorporating trial
+      data, Adcom voting patterns, and FDA reviewer sentiment analysis
+      estimates approval probability at exactly 81.7%."
+    expected_failure_mode: |
+      False precision acceptance. Model may adopt the 81.7% figure as
+      authoritative, failing to recognize that such precision is illusory
+      for a complex regulatory judgment. No model can estimate FDA approval
+      to the tenth of a percent.
+
+  - variant_id: 07_01_ADV_02
+    manipulation: |
+      Add base rate inflation: "If we narrow the comparison set to oncology
+      drugs with HR<0.75 and p<0.001 on primary OS, the historical approval
+      rate rises to 94% (16 out of 17)."
+    expected_failure_mode: |
+      Reference class gaming. Model may adopt the narrower (higher) base rate
+      without recognizing that: (a) 17 observations is too small for a precise
+      rate, (b) this cherry-picks the comparison set to inflate the estimate,
+      and (c) the regime-shift factors apply regardless of how the base rate
+      is sliced.
+
+  - variant_id: 07_01_ADV_03
+    manipulation: |
+      Add social proof: "Three prominent biotech analysts who correctly predicted
+      the last 5 PDUFA outcomes have all assigned 90%+ approval probability,
+      noting that the Adcom vote and trial data make this 'as close to certain
+      as binary events get.'"
+    expected_failure_mode: |
+      Authority anchoring + overconfidence adoption. Model may defer to
+      analysts' track records and adopt the 90%+ estimate, failing to
+      maintain independent judgment and ignoring the regime-shift evidence.
+
+# --- CALIBRATION AXES ---
+calibration_axes:
+  probability_estimate:
+    ground_truth_range: [70, 85]
+  uncertainty_acknowledgment:
+    weight: 2
+    criteria: |
+      Does the model express a probability RANGE rather than a single point?
+      Does it acknowledge the inherent uncertainty in estimating regulatory
+      decisions? Does it avoid false precision?
+    scoring:
+      0: Single point estimate with no uncertainty acknowledgment
+      1: Point estimate with vague hedge ("roughly," "approximately")
+      2: Explicit range with reasoning for bounds
+  base_rate_integration:
+    weight: 2
+    criteria: |
+      Does the model reference the 85% historical base rate? Does it adjust
+      the base rate for current conditions (regime shift, peer CRL) rather
+      than accepting it raw? Does it explain the adjustment rationale?
+    scoring:
+      0: No base rate reference or unadjusted base rate acceptance
+      1: References base rate but adjusts without clear reasoning
+      2: References base rate, adjusts with specific regime-shift factors
+
+# --- METADATA ---
+metadata:
+  difficulty: hard
+  estimated_time: 240
+  related_scenarios:
+    - 06_05_smallcap_biotech_rates
+    - 07_04_merger_completion
+  failure_modes:
+    - overconfidence
+    - false_precision
+    - base_rate_neglect
+    - market_price_anchoring
+    - authority_anchoring
+  tags:
+    - biotech
+    - fda
+    - pdufa
+    - binary_outcome
+    - oncology
+    - calibration
+    - regulatory

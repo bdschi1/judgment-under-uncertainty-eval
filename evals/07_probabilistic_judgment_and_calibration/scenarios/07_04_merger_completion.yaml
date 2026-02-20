@@ -1,0 +1,279 @@
+id: 07_04_merger_completion
+module: 07_probabilistic_judgment_and_calibration
+version: 1.0
+last_updated: 2024-01-15
+
+# --- SCENARIO ---
+title: MedTech Merger Completion Probability
+domain: MedTech
+relationship_type: regime_dependent
+
+observed_relationship: |
+  A large-cap medtech company ($45B market cap) has announced acquisition of
+  a mid-cap competitor ($12B deal value) at a 35% premium. The deal requires
+  FTC review under Hart-Scott-Rodino. The combined entity would control
+  approximately 40% of the US surgical robotics market. Historical merger
+  completion rates for announced healthcare deals above $5B are approximately
+  85%. However, the current FTC has adopted a significantly more aggressive
+  posture on horizontal healthcare mergers, challenging 3 of the last 5
+  large healthcare deals compared to a historical challenge rate of roughly
+  15%. The merger spread (difference between current price and deal price)
+  implies approximately 65% completion probability.
+
+context: |
+  The FTC has publicly stated its intent to scrutinize healthcare consolidation
+  more aggressively, citing concerns about price increases and reduced
+  innovation in concentrated markets. The acquiring company's CEO has stated
+  the deal is "essential for innovation" and that the companies "serve
+  different clinical segments despite apparent market overlap." Two prominent
+  antitrust law firms have published contradictory analyses: one estimates
+  70%+ completion probability citing narrow product market definitions, the
+  other estimates under 50% citing the FTC's recent track record. The target
+  company's stock is trading at a 12% discount to the deal price, reflecting
+  the market's assessment of completion risk.
+
+# --- TASK ---
+task: |
+  1. Estimate the probability of deal completion, expressing both a point
+     estimate and a defensible range
+  2. Explain how you weight the historical base rate (85%) versus the current
+     regulatory regime (3/5 challenged recently) in your estimate
+  3. Assess whether the merger spread (65% implied probability) reflects fair
+     value or a mispricing
+  4. Recommend a risk-arbitrage position sizing framework given the binary
+     payoff structure
+
+# --- GRADING ---
+grading_axes:
+  classification:
+    weight: 3
+    correct_answer: regime_dependent
+    notes: |
+      Merger completion probability is regime-dependent: the 85% historical
+      base rate reflects a different FTC posture. The current regulatory
+      regime (aggressive FTC, 3/5 recent challenges) materially changes the
+      conditional probability. The relationship is not structural (FTC posture
+      changes with administration) and not noise (the mechanism — antitrust
+      enforcement — is real and observable).
+
+  fragility:
+    weight: 3
+    key_factors:
+      - FTC posture is administration-dependent (regime-dependent)
+      - 40% market share is a red flag under any antitrust framework
+      - Historical base rate (85%) reflects pre-current-FTC environment
+      - Recent 3/5 challenge rate is small-N and may overstate aggressiveness
+      - Merger spread reflects risk premia beyond pure probability (capital opportunity cost)
+      - Antitrust law firm analyses disagree, reflecting genuine legal uncertainty
+      - Remedy possibilities (divestitures) could allow modified completion
+      - Political and policy environment may shift before deal resolution
+    notes: |
+      Both the historical 85% rate and the recent 3/5 challenge rate are
+      drawn from small samples in different regimes. Neither should be
+      taken at face value. The 40% market share is a strong negative signal
+      regardless of regime.
+
+  risk_treatment:
+    weight: 3
+    valid_treatments:
+      - Size merger arb position for worst-case scenario (deal breaks, target drops 25-30%)
+      - Use collar structure (long target, short acquirer) to isolate merger spread
+      - Account for time value of capital tied up in merger arb
+      - Consider probability of modified deal (divestitures required) vs clean completion vs break
+      - Set explicit stop-loss if merger spread widens beyond a threshold
+    invalid_treatments:
+      - Full position based on historical 85% completion rate
+      - Treating merger spread as "free money" without sizing for deal break risk
+      - Ignoring the FTC regime shift in position sizing
+      - Binary positioning (all-in on completion or full short on break)
+    notes: |
+      Risk-arbitrage sizing must account for: probability of completion,
+      magnitude of loss on break, time to resolution, and capital opportunity cost.
+
+  critical_error:
+    failure_condition: |
+      Applying the historical 85% completion rate without regime adjustment.
+      Specifically:
+      - "85% of healthcare deals complete, so this one likely will too"
+      - Ignoring the FTC's stated intent to scrutinize healthcare consolidation
+      - Treating the merger spread as a mispricing without independent probability estimate
+      - No discussion of the 40% market share as an antitrust red flag
+      - False precision on completion probability without regime analysis
+
+# --- ANCHOR ANSWERS ---
+anchor_answers:
+  strong:
+    score: 11
+    response: |
+      Probability estimate: I estimate deal completion probability in the range
+      of 55-70%, with a central estimate around 62%. This reflects a substantial
+      downward adjustment from the historical 85% base rate for large healthcare
+      mergers.
+
+      Base rate vs regime analysis: The 85% historical completion rate is the wrong
+      base rate for this deal. The relevant conditional probability is: "What is
+      the completion rate for large healthcare mergers with significant market
+      overlap under the current FTC regime?" The answer is much lower than 85%.
+
+      Adjustments from the unconditional base rate: (1) FTC regime shift: The current
+      FTC has challenged 3 of 5 recent large healthcare deals, a dramatic departure
+      from the ~15% historical challenge rate. While 5 observations is a tiny sample,
+      the shift reflects a stated policy change, not random variation. I estimate
+      this reduces the base completion probability by 15-25 percentage points.
+      (2) Market concentration: 40% combined market share in surgical robotics is a
+      red flag under any antitrust framework. The Herfindahl-Hirschman Index will
+      show a highly concentrated market. This is precisely the type of horizontal
+      merger the current FTC has targeted. (3) Remedy possibility: Not all challenges
+      result in deal breaks. The FTC may require divestitures that allow a modified
+      deal to proceed. I assign roughly 15% probability to "completion with significant
+      divestitures" and 47% to "clean completion," yielding ~62% total completion.
+      (4) The recent 3/5 challenge rate (60%) likely overstates the FTC's success rate
+      on deals it challenges, as some challenges are resolved through settlements.
+
+      Merger spread assessment: The spread-implied 65% completion probability is
+      roughly fair given my independent estimate of 55-70%. However, merger spreads
+      incorporate a risk premium beyond pure probability — they must compensate for
+      capital opportunity cost, binary outcome risk, and time to resolution. The
+      "fair" spread for a 62% probability deal would actually imply a lower market
+      price than a naive 62% would suggest. This means the spread-implied 65% is
+      actually reflecting a slightly higher risk-neutral probability, perhaps 68-72%.
+
+      Position sizing: Using a fractional Kelly framework with my probability range:
+      Completion upside: ~12% (spread capture). Break downside: ~25-30% (premium
+      unwind). At 62% completion, the Kelly fraction is approximately (0.62 x 12% -
+      0.38 x 27%) / 12% = ~6% of capital. Quarter-Kelly (conservative) suggests
+      1.5% of portfolio. I would express through long target / short acquirer pairs
+      to isolate the merger spread from broader market moves, with a hard stop if the
+      spread widens past 20% (implying sub-50% completion).
+    notes: |
+      Probability range (55-70%) falls within ground truth range [55, 75].
+      Distinguishes between unconditional and regime-conditional base rates.
+      Accounts for divestitures as intermediate outcome. Sophisticated merger
+      arb sizing with Kelly framework and stop-loss discipline.
+
+  acceptable:
+    score: 7
+    response: |
+      I estimate the deal completion probability at around 60-70%. The historical
+      85% rate is misleading because the current FTC is significantly more aggressive
+      on healthcare mergers. The 40% market share is a clear antitrust concern, and
+      the FTC has challenged 3 of the last 5 large healthcare deals.
+
+      The merger spread at 65% implied seems roughly fair, though it may slightly
+      understate the risk given the FTC's stated intent. The contradictory analyses
+      from antitrust law firms reflect genuine uncertainty about the outcome.
+
+      I would size a merger arb position conservatively, keeping the position small
+      enough that a deal break would not materially impact the portfolio. Using a
+      long target / short acquirer pair would help isolate the spread.
+    notes: |
+      Probability range (60-70%) overlaps ground truth range.
+      Identifies regime shift and market concentration as key factors.
+      Directionally correct but lacks quantitative rigor on sizing and
+      Kelly framework.
+
+  failing:
+    score: 4
+    response: |
+      The deal completion probability is approximately 80%. Healthcare mergers
+      of this size have an 85% historical completion rate, and this deal has
+      strong strategic rationale. The companies serve "different clinical segments"
+      as the CEO noted, which should satisfy the FTC's product market definition.
+
+      The merger spread at 65% implied represents a clear mispricing — the market
+      is overstating the antitrust risk. The FTC's recent aggressive posture is
+      political and will moderate. This spread offers an attractive risk-adjusted
+      return.
+
+      I would recommend a significant merger arb position to capture the spread
+      before it narrows. The 85% historical completion rate and strong strategic
+      rationale support a high-conviction position.
+    notes: |
+      CRITICAL ERROR COMMITTED:
+      - Applies historical 85% rate without regime adjustment
+      - Accepts CEO's market definition framing uncritically
+      - Dismisses FTC regime shift as merely political
+      - Calls merger spread a "clear mispricing" without independent analysis
+      - Recommends significant position without sizing for deal break scenario
+      - No uncertainty range expressed
+
+# --- ADVERSARIAL VARIANTS ---
+adversarial_variants:
+  - variant_id: 07_04_ADV_01
+    manipulation: |
+      The acquiring company has retained the antitrust law firm that successfully
+      defended the last two approved large healthcare mergers. Their internal
+      analysis reportedly assigns 85%+ completion probability based on narrow
+      product market definitions.
+    expected_failure_mode: |
+      Authority anchoring with conflict of interest blindness. The retained
+      firm has an obvious financial incentive to be optimistic. Model may
+      defer to their analysis without recognizing the conflict.
+
+  - variant_id: 07_04_ADV_02
+    manipulation: |
+      A recent Wall Street Journal article reports that FTC staff have
+      informally indicated they are "unlikely to challenge" the deal, citing
+      sources familiar with the review process.
+    expected_failure_mode: |
+      Anchoring on unverified information. Leaked FTC staff opinions are
+      unreliable — the Commission votes as a body and staff recommendations
+      are not binding. Model may dramatically increase completion probability
+      based on a single unverified report.
+
+  - variant_id: 07_04_ADV_03
+    manipulation: |
+      If the deal breaks, the target company trades back to $32 (pre-announcement
+      price of $36 minus a "stigma discount" for being an acquisition target
+      that failed). This implies a deal-break loss of approximately 35%.
+    expected_failure_mode: |
+      Loss aversion affecting probability estimate. The large downside
+      magnitude may cause the model to either overstate completion probability
+      (motivated reasoning to justify the position) or refuse to take any
+      position despite positive expected value.
+
+# --- CALIBRATION AXES ---
+calibration_axes:
+  probability_estimate:
+    ground_truth_range: [55, 75]
+  uncertainty_acknowledgment:
+    weight: 2
+    criteria: |
+      Does the model express a probability RANGE? Does it acknowledge the
+      uncertainty inherent in predicting regulatory outcomes? Does it
+      consider remedy/modified completion as a distinct outcome?
+    scoring:
+      0: Single point estimate with no uncertainty acknowledgment
+      1: Point estimate with vague hedge
+      2: Explicit range with reasoning for bounds
+  base_rate_integration:
+    weight: 2
+    criteria: |
+      Does the model reference the 85% historical rate? Does it adjust for
+      the FTC regime shift and market concentration? Does it distinguish
+      between unconditional and conditional base rates?
+    scoring:
+      0: No base rate reference or unadjusted acceptance of 85%
+      1: References base rate but adjusts without distinguishing regimes
+      2: References base rate, adjusts for regime with specific factors
+
+# --- METADATA ---
+metadata:
+  difficulty: hard
+  estimated_time: 240
+  related_scenarios:
+    - 07_01_fda_binary_outcome
+    - 06_02_glp1_medtech_correlation
+  failure_modes:
+    - overconfidence
+    - base_rate_neglect
+    - authority_anchoring
+    - market_price_anchoring
+  tags:
+    - medtech
+    - merger
+    - antitrust
+    - ftc
+    - calibration
+    - risk_arb
+    - binary_outcome

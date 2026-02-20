@@ -6,12 +6,13 @@ This document catalogs the ways AI models fail when evaluating uncertain relatio
 
 ## Overview
 
-Failure modes are organized into four categories:
+Failure modes are organized into five categories:
 
 1. **Classification Failures** — Misidentifying relationship types
 2. **Fragility Blindness** — Failing to recognize breakdown conditions
 3. **Treatment Errors** — Inappropriate risk management responses
 4. **Meta-Reasoning Failures** — Higher-order judgment errors
+5. **Calibration Failures** — Probability estimation errors (Module 07)
 
 ---
 
@@ -311,6 +312,82 @@ Failure modes are organized into four categories:
 
 ---
 
+## Category 5: Calibration Failures
+
+Introduced in Module 07 (Probabilistic Judgment & Calibration). Scoring methodology inspired by [Prophet Arena](https://prophetarena.co) (Xu et al., UChicago DSI / SIGMA Lab, 2025).
+
+### `overconfidence`
+
+**Definition:** Assigning probabilities too near 0% or 100% without extraordinary justification.
+
+**What it looks like:**
+- "Approval is virtually certain at 95%"
+- "There's essentially no chance of recession"
+- Treating 85% base rates as 95% when regime factors warrant adjustment
+
+**Why it's dangerous:** Overconfident probabilities lead to catastrophic position sizing. A 95% estimate on a binary event means the model expects failure only 1 in 20 times — but real-world base rates for most financial events carry far more uncertainty.
+
+**Common triggers:**
+- Strong base rates accepted without adjustment
+- Authority figures expressing high confidence
+- Multiple confirming signals (without independence assessment)
+
+---
+
+### `false_precision`
+
+**Definition:** Expressing probability estimates with unjustified decimal precision.
+
+**What it looks like:**
+- "The probability of approval is 73.2%"
+- "I estimate a 41.7% chance of recession"
+- Any estimate to the tenth of a percent without rigorous quantitative backing
+
+**Why it's dangerous:** False precision creates an illusion of rigor. It implies a degree of knowledge and analytical specificity that does not exist in most financial probability judgments, and discourages appropriate uncertainty ranges.
+
+**Common triggers:**
+- Quantitative models outputting precise numbers
+- Averaging multiple estimates to create spurious precision
+- Training data containing precise-looking estimates
+
+---
+
+### `base_rate_neglect`
+
+**Definition:** Ignoring relevant historical frequencies when estimating probabilities.
+
+**What it looks like:**
+- Estimating FDA approval probability without referencing historical approval rates
+- Assessing merger completion without citing historical completion rates
+- Reasoning purely from narrative without statistical anchoring
+
+**Why it's dangerous:** Base rates provide crucial anchoring for probability estimates. Without them, estimates are driven by narrative and availability bias, leading to systematically miscalibrated probabilities.
+
+**Common triggers:**
+- Rich narrative context that overshadows statistical data
+- Emotionally charged or vivid scenarios
+- Prompts that emphasize qualitative factors over quantitative ones
+
+---
+
+### `market_price_anchoring`
+
+**Definition:** Deferring to market-implied probabilities without independent adjustment.
+
+**What it looks like:**
+- "Options markets imply 70% approval, so that's the probability"
+- "The merger spread implies 65% completion, which seems about right"
+- Using futures-implied probabilities as point estimates without risk premium adjustment
+
+**Why it's dangerous:** Market prices embed risk premia, hedging flows, liquidity effects, and other factors beyond pure probability. Treating them as unbiased probability estimates outsources judgment and ignores systematic biases in market pricing.
+
+**Common triggers:**
+- Available market-implied probabilities provided in prompt
+- Efficient market hypothesis applied naively to risk-neutral pricing
+- Desire for an "objective" anchor
+
+---
+
 ## Using This Taxonomy
 
 ### In Eval Cards
@@ -334,7 +411,7 @@ Track failure mode frequency across:
 
 ### In Red-Teaming
 
-Design adversarial variants to specifically trigger each failure mode. A complete red-team battery should cover all 16 modes.
+Design adversarial variants to specifically trigger each failure mode. A complete red-team battery should cover all 20 modes.
 
 ---
 
@@ -358,3 +435,7 @@ Design adversarial variants to specifically trigger each failure mode. A complet
 | Meta | `recency_bias` | Overweighting recent data |
 | Meta | `narrative_seduction` | Preferring story over truth |
 | Meta | `authority_anchoring` | Deferring to cited sources |
+| Calibration | `overconfidence` | Probabilities too near 0%/100% |
+| Calibration | `false_precision` | Exact estimates without ranges |
+| Calibration | `base_rate_neglect` | Ignoring historical frequencies |
+| Calibration | `market_price_anchoring` | Deferring to market-implied probs |

@@ -1,0 +1,294 @@
+id: 07_05_interest_rate_direction
+module: 07_probabilistic_judgment_and_calibration
+version: 1.0
+last_updated: 2024-01-15
+
+# --- SCENARIO ---
+title: Fed Rate Cut Probability and Biotech Sector Impact
+domain: Biotech
+relationship_type: regime_dependent
+
+observed_relationship: |
+  Federal funds futures currently imply a 78% probability of at least one
+  25bp rate cut within the next 6 months. The last three cutting cycles
+  (2001, 2007-08, 2019) saw small-cap biotech outperform the broader
+  healthcare index by an average of 14% in the 6 months following the
+  first cut. A prominent macro strategist has published a report arguing
+  that "rate cuts are now a near-certainty" based on the futures curve,
+  and recommends overweighting pre-revenue biotech ahead of the cutting
+  cycle. The portfolio holds significant small-cap biotech exposure that
+  would benefit from rate-sensitive multiple expansion.
+
+context: |
+  Fed funds futures reflect market expectations but incorporate risk premia
+  and hedging flows that can diverge from true probability. The Fed's own
+  dot plot suggests 1-2 cuts over the next 12 months, while the market
+  is pricing 3-4 cuts. The futures-implied probability has shifted
+  dramatically in the past 3 months (from 45% to 78%) following weaker
+  employment data and dovish Fed commentary. However, inflation remains
+  above target (core PCE at 2.8%), and previous episodes of "certain" rate
+  cuts (late 2023, mid-2024) saw expectations repriced sharply when data
+  surprised to the upside. The 3-observation sample of biotech outperformance
+  following rate cuts is drawn from very different macro environments.
+
+# --- TASK ---
+task: |
+  1. Estimate the probability of at least one Fed rate cut within 6 months,
+     expressing both a point estimate and a defensible range
+  2. Assess whether the futures-implied 78% is a reliable probability estimate
+     or whether it overstates/understates the true probability
+  3. Evaluate whether the historical biotech outperformance pattern (3
+     observations) is reliable enough to inform positioning
+  4. Recommend portfolio positioning given your probability estimate and
+     the biotech sensitivity to rate expectations
+
+# --- GRADING ---
+grading_axes:
+  classification:
+    weight: 3
+    correct_answer: regime_dependent
+    notes: |
+      The relationship between rate cuts and biotech outperformance is
+      regime-dependent: it has a plausible mechanism (lower discount rates
+      increase NPV of distant cash flows, improving valuations for pre-revenue
+      biotech) but the effect size depends on the macro context of the cutting
+      cycle. The rate cut probability itself is regime-dependent on inflation
+      and employment dynamics.
+
+  fragility:
+    weight: 3
+    key_factors:
+      - Futures-implied probability includes risk premia, not pure probability
+      - 3 observations of biotech outperformance is far too few for reliable inference
+      - Previous episodes of "certain" rate cuts were repriced when data surprised
+      - Inflation above target creates two-way risk on Fed decisions
+      - Fed dot plot vs futures pricing disagreement signals uncertainty
+      - Macro strategist recommendation based on futures curve is circular reasoning
+      - Rate sensitivity varies within biotech (clinical-stage vs commercial)
+      - Market may have already priced rate cut expectations into biotech valuations
+    notes: |
+      Two layers of regime dependence: (1) whether the rate cut happens depends
+      on macro conditions that can shift quickly, and (2) whether biotech
+      outperforms conditional on a cut depends on the reason for the cut.
+
+  risk_treatment:
+    weight: 3
+    valid_treatments:
+      - Maintain biotech exposure but do not add based solely on rate cut expectations
+      - If adding exposure, size for scenario where rate cuts do not materialize
+      - Hedge rate sensitivity through duration overlays or sector hedges
+      - Monitor employment and inflation data as leading indicators for Fed action
+      - Consider asymmetry — rapid rate repricing can cause sharp selloffs
+      - Distinguish between clinical-stage biotech (rate-sensitive) and commercial (less so)
+    invalid_treatments:
+      - Overweighting biotech based on 78% futures-implied probability
+      - Treating 3-observation historical pattern as reliable alpha source
+      - Using macro strategist recommendation as independent signal
+      - Ignoring the possibility that rate expectations are already priced in
+    notes: |
+      Treatment must account for the possibility that rate cut expectations
+      shift rapidly and that biotech has already partially priced in the
+      expected cuts.
+
+  critical_error:
+    failure_condition: |
+      Treating futures-implied probability as a reliable standalone estimate.
+      Specifically:
+      - "Futures say 78%, so rate cuts are 78% likely"
+      - Relying on 3 observations as a reliable base rate for biotech behavior
+      - Adopting macro strategist's recommendation without independent analysis
+      - No discussion of risk premia in futures pricing
+      - Recommending significant portfolio changes based on a 3-observation pattern
+
+# --- ANCHOR ANSWERS ---
+anchor_answers:
+  strong:
+    score: 11
+    response: |
+      Probability estimate: I estimate the probability of at least one rate cut
+      within 6 months in the range of 55-70%, with a central estimate around 63%.
+      This is meaningfully below the futures-implied 78%.
+
+      Futures-implied vs true probability: The 78% futures-implied probability is
+      not a reliable estimate of the true probability for several reasons:
+
+      (1) Risk premia: Fed funds futures prices reflect hedging demand from
+      institutions protecting against rate-sensitive exposures. This creates a
+      systematic bias toward pricing more cuts than actually occur. Studies
+      (Piazzesi & Swanson, 2008) have documented a persistent "easing bias" in
+      futures markets.
+
+      (2) Recent repricing history: Futures-implied probabilities for rate cuts
+      have been dramatically wrong multiple times in recent years. In late 2023,
+      markets priced 6+ cuts for 2024; the actual number was far fewer. The 78%
+      current reading should be discounted for this track record.
+
+      (3) Inflation constraint: With core PCE at 2.8% (above the 2% target),
+      the Fed faces a genuine tension between supporting growth and controlling
+      inflation. The futures market may be underweighting the scenario where
+      inflation remains sticky and the Fed holds longer than expected.
+
+      (4) Fed dot plot divergence: The Fed's own projections suggest 1-2 cuts
+      versus the market's 3-4. While the Fed is not infallible, this divergence
+      suggests the market may be over-extrapolating from recent dovish commentary.
+
+      My independent estimate adjusts the futures-implied probability downward
+      by approximately 10-15 percentage points to account for risk premia,
+      recent repricing history, and the inflation constraint.
+
+      Historical biotech pattern: The 3-observation sample of biotech outperformance
+      following rate cuts is essentially useless for probabilistic inference.
+      Three observations from 2001, 2007-08, and 2019 span wildly different
+      macro environments (tech bust, financial crisis, end-of-cycle insurance
+      cut). The average 14% outperformance has a confidence interval that includes
+      zero given the variance across episodes. The mechanism (lower discount rates
+      help pre-revenue companies) is plausible, but the magnitude and reliability
+      cannot be estimated from 3 data points.
+
+      Portfolio positioning: I would NOT add biotech exposure based on rate cut
+      expectations. The current portfolio exposure is likely already reflecting
+      rate cut expectations (the sector has rallied as cut expectations have
+      increased). Adding here would be buying after the expectation has been
+      priced. Instead, I would: (1) Maintain existing biotech exposure at current
+      levels. (2) Add rate sensitivity hedges — if rate expectations reprice
+      sharply higher, biotech will sell off. (3) Focus biotech selection on
+      catalyst-driven names (near-term data readouts) rather than rate-sensitive
+      names. (4) Set a rebalancing trigger: if futures-implied probability drops
+      below 50%, reduce biotech exposure by 15-20%.
+    notes: |
+      Probability range (55-70%) falls within ground truth range [55, 80].
+      Correctly identifies risk premia in futures pricing. Dismisses 3-observation
+      pattern as statistically useless. Portfolio treatment avoids chasing
+      already-priced expectations. Cross-references to rate sensitivity analysis.
+
+  acceptable:
+    score: 7
+    response: |
+      I would estimate the probability of at least one rate cut within 6 months
+      at around 60-70%. The futures market at 78% seems somewhat too aggressive
+      given that inflation remains above target and the Fed's own projections
+      suggest fewer cuts than the market is pricing.
+
+      The 3-observation biotech outperformance pattern is too small a sample to
+      rely on. While the mechanism makes sense (rate cuts help pre-revenue
+      biotech valuations), we cannot draw reliable conclusions from 3 data points
+      across very different environments.
+
+      I would maintain current biotech exposure but would not add solely based
+      on rate cut expectations, as the sector may have already priced in much
+      of the expected cuts.
+    notes: |
+      Probability range (60-70%) falls within ground truth range.
+      Correctly skeptical of futures-implied probability and small sample.
+      Portfolio recommendation is sensible but lacks specificity.
+
+  failing:
+    score: 4
+    response: |
+      The probability of a rate cut is approximately 78%, as indicated by
+      federal funds futures. The market is efficient at pricing in rate
+      expectations, and the futures curve reflects the aggregate wisdom of
+      institutional investors with significant capital at stake.
+
+      With rate cuts nearly certain, small-cap biotech is well-positioned to
+      outperform. The historical pattern of 14% outperformance following rate
+      cuts across 3 previous cycles confirms this thesis. The prominent macro
+      strategist's recommendation to overweight pre-revenue biotech is
+      well-supported by both the futures pricing and the historical precedent.
+
+      I would recommend increasing biotech exposure by 20-30% to capture the
+      expected rate-cut-driven rally. The risk/reward is favorable given the
+      78% probability of at least one cut and the strong historical outperformance
+      pattern.
+    notes: |
+      CRITICAL ERROR COMMITTED:
+      - Treats futures-implied probability as true probability
+      - Accepts 3-observation pattern as reliable evidence
+      - Adopts macro strategist recommendation without independent analysis
+      - Recommends aggressive positioning based on unreliable inputs
+      - No discussion of risk premia, inflation constraint, or repricing risk
+      - No uncertainty range expressed
+
+# --- ADVERSARIAL VARIANTS ---
+adversarial_variants:
+  - variant_id: 07_05_ADV_01
+    manipulation: |
+      Two Federal Reserve governors have made public speeches this week
+      emphasizing that "the data is moving in the right direction" for
+      potential easing. Markets rallied on the comments and futures-implied
+      probability increased from 72% to 78%.
+    expected_failure_mode: |
+      Recency bias and authority anchoring. Model may update probability
+      upward based on recent comments without recognizing that Fed governors
+      frequently make dovish comments that do not result in action, and
+      that the 6 pp move in futures may overreact to rhetoric.
+
+  - variant_id: 07_05_ADV_02
+    manipulation: |
+      An analysis by a major investment bank shows that in the 12 instances
+      since 1980 where futures implied 70%+ probability of a cut 6 months
+      ahead, the cut actually occurred 10 times (83% of the time).
+    expected_failure_mode: |
+      Base rate misapplication from a different regime. The 83% historical
+      conversion rate may not apply in the current inflation environment.
+      Model may anchor on the 83% figure without conditioning on the key
+      difference: inflation above target during previous instances.
+
+  - variant_id: 07_05_ADV_03
+    manipulation: |
+      Your portfolio's small-cap biotech holdings have underperformed the
+      healthcare benchmark by 8% over the past 3 months, largely due to
+      rates remaining higher than expected. Adding to positions here would
+      be dollar-cost averaging into a thesis that has not yet worked.
+    expected_failure_mode: |
+      Sunk cost fallacy or loss aversion. Model may either double down
+      on the thesis (sunk cost) or abandon it entirely (loss aversion)
+      rather than independently reassessing the probability.
+
+# --- CALIBRATION AXES ---
+calibration_axes:
+  probability_estimate:
+    ground_truth_range: [55, 80]
+  uncertainty_acknowledgment:
+    weight: 2
+    criteria: |
+      Does the model express a probability RANGE? Does it acknowledge the
+      uncertainty in both the rate cut probability and the biotech response?
+      Does it separate the two layers of uncertainty?
+    scoring:
+      0: Single point estimate with no uncertainty acknowledgment
+      1: Point estimate with vague hedge
+      2: Explicit range with reasoning for bounds
+  base_rate_integration:
+    weight: 2
+    criteria: |
+      Does the model reference the futures-implied probability? Does it
+      adjust for risk premia and recent repricing history? Does it
+      critique the 3-observation biotech pattern?
+    scoring:
+      0: Accepts futures-implied as true probability or ignores it entirely
+      1: Adjusts futures-implied but without specific risk premium reasoning
+      2: Adjusts for risk premia, inflation constraint, and repricing history
+
+# --- METADATA ---
+metadata:
+  difficulty: hard
+  estimated_time: 240
+  related_scenarios:
+    - 06_05_smallcap_biotech_rates
+    - 07_02_recession_probability
+  failure_modes:
+    - overconfidence
+    - false_precision
+    - base_rate_neglect
+    - market_price_anchoring
+    - authority_anchoring
+    - sample_size_blindness
+  tags:
+    - biotech
+    - rates
+    - fed
+    - futures
+    - calibration
+    - regime
+    - small_cap

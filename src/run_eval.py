@@ -63,6 +63,15 @@ def build_prompt(scenario: dict, adversarial_variant: Optional[dict] = None) -> 
     parts.append("\n## Task")
     parts.append(scenario["task"].strip())
 
+    # Module 07: add explicit probability instruction
+    if scenario.get("module", "").startswith("07"):
+        parts.append("\n## Important")
+        parts.append(
+            "For this scenario, you must provide explicit numerical probability "
+            "estimates (0-100%) with justification. Do not just give qualitative "
+            "assessments. Provide a point estimate and a defensible range."
+        )
+
     return "\n\n".join(parts)
 
 
