@@ -65,10 +65,10 @@ all = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/bradschonhoft/judgment-under-uncertainty-eval"
-Documentation = "https://github.com/bradschonhoft/judgment-under-uncertainty-eval#readme"
-Repository = "https://github.com/bradschonhoft/judgment-under-uncertainty-eval"
-Issues = "https://github.com/bradschonhoft/judgment-under-uncertainty-eval/issues"
+Homepage = "https://github.com/bdschi1/judgment-under-uncertainty-eval"
+Documentation = "https://github.com/bdschi1/judgment-under-uncertainty-eval#readme"
+Repository = "https://github.com/bdschi1/judgment-under-uncertainty-eval"
+Issues = "https://github.com/bdschi1/judgment-under-uncertainty-eval/issues"
 
 [tool.setuptools.packages.find]
 where = ["src"]
